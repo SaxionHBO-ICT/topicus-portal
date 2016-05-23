@@ -44,7 +44,7 @@ public class TalkModel {
     public boolean isUsernameUnique(String name) {
 
         for (User user : users) {
-            if (user.getUserName().equals(name)) {
+            if (user.getUsername().equals(name)) {
                 return false;
             }
         }
@@ -55,7 +55,7 @@ public class TalkModel {
         User result = null;
 
         for (User user : users) {
-            if (user.getUserName().equals(username)) {
+            if (user.getUsername().equals(username)) {
                 result = user;
             }
         }

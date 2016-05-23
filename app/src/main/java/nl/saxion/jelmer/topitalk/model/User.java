@@ -15,7 +15,7 @@ public class User {
      * Database fields
      */
     @DatabaseField
-    private String userName;
+    private String username;
     @DatabaseField
     private String password;
     @DatabaseField
@@ -33,17 +33,16 @@ public class User {
         //No-argument constructor, needed by ORMLite.
     }
 
-    public User(String userName, String password, String name, String surname) {
-        this.userName = userName;
+    public User(String username, String password, String name, String surname) {
+        this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        userPosts = new ArrayList<>();
         userComments = new ArrayList<>();
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -84,5 +83,19 @@ public class User {
 
     public void setUserPictureId(int userPictureId) {
         this.userPictureId = userPictureId;
+    }
+
+    public void addUserPost(Post post) {
+        if (userPosts == null) {
+            userPosts = new ArrayList<>();
+        }
+        userPosts.add(post);
+    }
+
+    public void addUserComment(Comment comment) {
+        if (userComments == null) {
+            userComments = new ArrayList<>();
+        }
+        userComments.add(comment);
     }
 }
