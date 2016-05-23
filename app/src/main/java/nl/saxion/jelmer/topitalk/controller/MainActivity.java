@@ -5,11 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.User;
+import nl.saxion.jelmer.topitalk.model.TalkModel;
 
 public class MainActivity extends AppCompatActivity {
-
-    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isUserLoggedIn() {
-        return currentUser != null;
+        return TalkModel.getInstance().getCurrentUser() != null;
     }
 
     private void initialize() {
@@ -37,4 +35,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 }

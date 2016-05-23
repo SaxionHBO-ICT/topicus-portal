@@ -17,7 +17,7 @@ public class TalkModel {
         users = new ArrayList<>();
     }
 
-    private static TalkModel getInstance() {
+    public static TalkModel getInstance() {
 
         if (talkModel == null) {
             talkModel = new TalkModel();
@@ -25,5 +25,44 @@ public class TalkModel {
         return talkModel;
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
 
+    public ArrayList<Post> getPostList() {
+        return postList;
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    public boolean isUsernameUnique(String name) {
+
+        for (User user : users) {
+            if (user.getUserName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public User findUserByUsername(String username) {
+        User result = null;
+
+        for (User user : users) {
+            if (user.getUserName().equals(username)) {
+                result = user;
+            }
+        }
+        return result;
+    }
+
+    public void addUser(String userName, String password, String name, String surname) {
+        users.add(new User(userName, password, name, surname));
+    }
 }

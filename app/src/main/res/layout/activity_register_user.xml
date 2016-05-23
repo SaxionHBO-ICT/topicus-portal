@@ -109,7 +109,7 @@
         android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/et_password_register_repeat"
         android:layout_marginTop="35dp"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:layout_marginStart="5dp"
         android:singleLine="true"/>
 
@@ -132,12 +132,12 @@
         android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/et_name_register"
         android:layout_marginTop="5dp"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:layout_marginStart="5dp"
         android:singleLine="true"/>
 
     <Button
-        android:id="@+id/bt_login"
+        android:id="@+id/bt_register"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
