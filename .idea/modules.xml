@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TopiTalk.iml" filepath="$PROJECT_DIR$/TopiTalk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ormlite-android-4.49/ormlite-android-4.49.iml" filepath="$PROJECT_DIR$/ormlite-android-4.49/ormlite-android-4.49.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ormlite-core-4.49/ormlite-core-4.49.iml" filepath="$PROJECT_DIR$/ormlite-core-4.49/ormlite-core-4.49.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,2 +1,0 @@
-configurations.create("default")
-artifacts.add("default", file('ormlite-core-4.9.jar'))
