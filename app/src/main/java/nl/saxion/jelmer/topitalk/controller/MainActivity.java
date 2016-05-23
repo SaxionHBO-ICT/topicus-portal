@@ -15,8 +15,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        initialize();
+    }
 
-        if (currentUser != null) {
+    @Override
+    protected void onResume() {
+        initialize();
+        super.onResume();
+    }
+
+    private boolean isUserLoggedIn() {
+        return currentUser != null;
+    }
+
+    private void initialize() {
+
+        if (isUserLoggedIn()) {
             setContentView(R.layout.activity_main);
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
