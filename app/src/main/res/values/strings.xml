@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TopiTalk</string>
+    <string name="gebruikersnaam">Gebruikersnaam</string>
+    <string name="password">Wachtwoord</string>
+    <string name="bt_login">Login</string>
+    <string name="new_account"><u>Nog geen account? Klik hier!</u></string>
+    <string name="name">Voornaam</string>
+    <string name="surname">Achternaam</string>
+    <string name="bt_register">Registreer</string>
 </resources>

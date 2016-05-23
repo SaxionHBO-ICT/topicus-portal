@@ -11,6 +11,9 @@ import java.util.ArrayList;
 @DatabaseTable(tableName = "users")
 public class User {
 
+    /**
+     * Database fields
+     */
     @DatabaseField
     private String userName;
     @DatabaseField
@@ -21,7 +24,7 @@ public class User {
     private String surname;
     @DatabaseField
     private String team; //Team of which user is part within Topicus.
-    @DatabaseField
+
     private int userPictureId;
     private ArrayList<Post> userPosts;
     private ArrayList<Comment> userComments;

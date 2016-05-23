@@ -8,6 +8,22 @@ import java.util.ArrayList;
 public class TalkModel {
 
     private User currentUser;
+    private static TalkModel talkModel = null;
     private ArrayList<Post> postList;
+    private ArrayList<User> users;
+
+    private TalkModel() {
+        postList = new ArrayList<>();
+        users = new ArrayList<>();
+    }
+
+    private static TalkModel getInstance() {
+
+        if (talkModel == null) {
+            talkModel = new TalkModel();
+        }
+        return talkModel;
+    }
+
 
 }

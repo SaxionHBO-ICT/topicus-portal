@@ -5,6 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "nl.saxion.jelmer.topitalk"
         minSdkVersion 19
         targetSdkVersion 23
@@ -23,8 +24,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile project(':ormlite-android-4.9-javadoc')
-    compile project(':ormlite-core-4.9-javadoc')
-    compile project(':ormlite-core-4.9')
-    compile project(':ormlite-android-4.9')
+    compile project(':ormlite-android-4.49')
+    compile project(':ormlite-core-4.49')
 }
