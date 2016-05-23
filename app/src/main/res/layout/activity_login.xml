@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/topicusYellow"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/topicus_log" />
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp"
+        android:text="@string/gebruikersnaam"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_user"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/password"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:inputType="textPassword"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/tv_new_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:text="@string/new_account"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/bt_login"
+        android:textColor="@color/topicusWhite" />
+
+</RelativeLayout>

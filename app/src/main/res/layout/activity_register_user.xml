@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/topicusYellow"
+    tools:context="nl.saxion.jelmer.topitalk.controller.RegisterUserActivity">
+
+    <ImageView
+        android:id="@+id/iv_icon_register"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/topicus_log" />
+
+    <TextView
+        android:id="@+id/tv_user_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/iv_icon_register"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/gebruikersnaam"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_user_register"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="@color/topicusWhite"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:layout_below="@+id/iv_icon_register"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/tv_password_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_user_register"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/password"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_password_register"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="@color/topicusWhite"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:layout_below="@+id/et_user_register"
+        android:layout_marginTop="5dp"
+        android:inputType="textPassword"
+        android:layout_marginStart="5dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/tv_password_register_repeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_password_register"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/password"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_password_register_repeat"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="@color/topicusWhite"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:layout_below="@+id/et_password_register"
+        android:layout_marginTop="5dp"
+        android:inputType="textPassword"
+        android:layout_marginStart="5dp"
+        android:singleLine="true"/>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="1dp"
+        android:layout_below="@+id/et_password_register_repeat"
+        android:layout_marginTop="18dp"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/tv_name_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_password_register_repeat"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/name"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_name_register"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="@color/topicusWhite"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:layout_below="@+id/et_password_register_repeat"
+        android:layout_marginTop="35dp"
+        android:inputType="textPassword"
+        android:layout_marginStart="5dp"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/tv_surname_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_name_register"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/surname"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_surname_register"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:background="@color/topicusWhite"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:layout_below="@+id/et_name_register"
+        android:layout_marginTop="5dp"
+        android:inputType="textPassword"
+        android:layout_marginStart="5dp"
+        android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:text="@string/bt_register"
+        android:textColor="@color/topicusWhite"/>
+
+</RelativeLayout>
