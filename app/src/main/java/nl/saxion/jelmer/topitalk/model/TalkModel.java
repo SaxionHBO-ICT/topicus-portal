@@ -65,4 +65,8 @@ public class TalkModel {
     public void addUser(String userName, String password, String name, String surname) {
         users.add(new User(userName, password, name, surname));
     }
+
+    public void logoutCurrentUser() {
+        currentUser = null;
+    }
 }
