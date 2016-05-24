@@ -37,7 +37,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                             etPassword.getText().toString(),
                             etName.getText().toString(),
                             etSurname.getText().toString());
-                    Toast.makeText(RegisterUserActivity.this, "Account met naam: " + etUsername.getText().toString() + " is voor u geregistreerd.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterUserActivity.this, "Account met naam: " + etUsername.getText().toString() + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Controleer of alle velden juist zijn ingevuld.", Toast.LENGTH_LONG).show();
