@@ -11,4 +11,6 @@
     <string name="tv_date_placeholder">24/05/2016 15:11</string>
     <string name="tv_posttitle_placeholder">Post title placeholder</string>
     <string name="bt_logout">Logout</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_settings">Settings</string>
 </resources>

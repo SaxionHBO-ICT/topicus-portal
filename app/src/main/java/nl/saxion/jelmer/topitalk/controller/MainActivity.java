@@ -3,6 +3,9 @@ package nl.saxion.jelmer.topitalk.controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,7 +16,6 @@ import nl.saxion.jelmer.topitalk.view.PostListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btLogout;
     private PostListAdapter adapter;
     private ListView postList;
 
@@ -22,16 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btLogout = (Button) findViewById(R.id.bt_logout);
         postList = (ListView) findViewById(R.id.lv_post_list);
-
-        btLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TalkModel.getInstance().logoutCurrentUser();
-                initialize();
-            }
-        });
 
         initialize();
 
@@ -52,15 +45,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize() {
 
-        if (isUserLoggedIn()) {
-            btLogout.setVisibility(View.VISIBLE);
-            btLogout.setClickable(true);
-        } else {
-            btLogout.setVisibility(View.INVISIBLE);
-            btLogout.setClickable(false);
+        if (!isUserLoggedIn()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.topi_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                TalkModel.getInstance().logoutCurrentUser();
+                initialize();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
