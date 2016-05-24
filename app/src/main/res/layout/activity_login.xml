@@ -28,7 +28,7 @@
         android:layout_below="@+id/tv_user"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:background="@android:color/white"
+        android:background="@drawable/edit_text_border"
         android:singleLine="true" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_below="@+id/tv_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
+        android:background="@drawable/edit_text_border"
         android:inputType="textPassword"
         android:singleLine="true" />
 

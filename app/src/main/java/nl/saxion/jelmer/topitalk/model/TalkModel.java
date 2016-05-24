@@ -20,11 +20,9 @@ public class TalkModel {
         User user = new User("Hans", "1234", "Hans", "Test");
         users.add(user);
 
-        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
-        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
-        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
-        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
-        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
+        for (int i = 0; i < 15; i++) {
+            postList.add(new Post(user, "HBO-ICT BV project " + i, "Dit is test text " + i + "om te testen of het listitem werkt."));
+        }
     }
 
     public static TalkModel getInstance() {
