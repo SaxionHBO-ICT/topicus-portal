@@ -17,6 +17,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btLogout = (Button) findViewById(R.id.bt_logout);
+
+        btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TalkModel.getInstance().logoutCurrentUser();
+                initialize();
+            }
+        });
+
         initialize();
     }
 
@@ -33,22 +44,14 @@ public class MainActivity extends AppCompatActivity {
     private void initialize() {
 
         if (isUserLoggedIn()) {
-            setContentView(R.layout.activity_main);
-            btLogout = (Button) findViewById(R.id.bt_logout);
             btLogout.setVisibility(View.VISIBLE);
             btLogout.setClickable(true);
-
-            btLogout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TalkModel.getInstance().logoutCurrentUser();
-                    initialize();
-                }
-            });
         } else {
+            btLogout.setVisibility(View.INVISIBLE);
+            btLogout.setClickable(false);
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
     }
-
 }

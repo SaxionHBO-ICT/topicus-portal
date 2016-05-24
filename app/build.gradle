@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile project(':ormlite-android-4.49')
     compile project(':ormlite-core-4.49')
+    compile project(':ormlite-jdbc-4.49')
 }

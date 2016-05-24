@@ -2,6 +2,8 @@ package nl.saxion.jelmer.topitalk.model;
 
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
 /**
  * Created by Nyds on 21/05/2016.
  */
+@DatabaseTable
 public class Post implements Datable {
 
     private static int lastAssignedPostId = 0;
@@ -18,12 +21,16 @@ public class Post implements Datable {
     private User author;
     private String title;
     private String text;
+    private boolean isHotTopic;
+    private int highFives; //Total number of votes for a post. Can be increased by up-voting, decreased by down-voting.
     private ArrayList<Comment> comments;
 
     public Post(User author, String title, String text) {
         this.author = author;
         this.title = title;
         this.text = text;
+        isHotTopic = false;
+        highFives = 0;
         lastAssignedPostId++;
         postId = lastAssignedPostId;
         postDate = generateDate();
@@ -34,6 +41,8 @@ public class Post implements Datable {
         this.author = author;
         this.title = title;
         this.text = text;
+        isHotTopic = false;
+        highFives = 0;
         this.imageId = imageId;
         lastAssignedPostId++;
         postId = lastAssignedPostId;
@@ -77,6 +86,14 @@ public class Post implements Datable {
         return comments;
     }
 
+    public int getHighFives() {
+        return highFives;
+    }
+
+    public boolean isHotTopic() {
+        return isHotTopic;
+    }
+
     /**
      * Setters
      */
@@ -91,6 +108,22 @@ public class Post implements Datable {
 
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+
+    public void upvotePost() {
+        highFives++;
+
+        if (highFives >= 20) {
+            isHotTopic = true;
+        }
+    }
+
+    public void downvotePost() {
+        highFives--;
+
+        if (highFives < 20) {
+            isHotTopic = false;
+        }
     }
 
     /**
