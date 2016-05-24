@@ -15,6 +15,16 @@ public class TalkModel {
     private TalkModel() {
         postList = new ArrayList<>();
         users = new ArrayList<>();
+
+        //Dummy data
+        User user = new User("Hans", "1234", "Hans", "Test");
+        users.add(user);
+
+        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
+        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
+        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
+        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
+        postList.add(new Post(user, "HBO-ICTBV project", "Dit is een test text om te testen of het listitem werkt."));
     }
 
     public static TalkModel getInstance() {
