@@ -34,6 +34,7 @@
         android:background="@drawable/post_item_border"/>
 
     <EditText
+        android:id="@+id/et_post_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/et_post_title"

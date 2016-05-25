@@ -16,13 +16,9 @@ public class TalkModel {
         postList = new ArrayList<>();
         users = new ArrayList<>();
 
-        //Dummy data
-        User user = new User("test", "1234", "Hans", "Test");
+        //Dummy User
+        User user = new User("JelmerDuzijn", "1234", "Jelmer", "Jelmer");
         users.add(user);
-
-        for (int i = 0; i < 15; i++) {
-            postList.add(new Post(user, "HBO-ICT BV project " + i, "Dit is test text " + i + " om te testen of het listitem werkt."));
-        }
     }
 
     public static TalkModel getInstance() {
@@ -72,6 +68,10 @@ public class TalkModel {
 
     public void addUser(String userName, String password, String name, String surname) {
         users.add(new User(userName, password, name, surname));
+    }
+
+    public void addPost(User author, String title, String text) {
+        postList.add(new Post(author, title, text));
     }
 
     public void logoutCurrentUser() {
