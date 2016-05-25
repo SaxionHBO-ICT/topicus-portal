@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import nl.saxion.jelmer.topitalk.R;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private PostListAdapter adapter;
     private ListView postList;
     private FloatingActionButton btNewPost;
+    public final static String POSITION_MESSAGE = "position_message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        postList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, PostDetailActivity.class);
+                intent.putExtra(POSITION_MESSAGE, position);
                 startActivity(intent);
             }
         });
