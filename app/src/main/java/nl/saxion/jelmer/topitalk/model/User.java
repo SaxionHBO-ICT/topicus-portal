@@ -5,6 +5,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
 
+import nl.saxion.jelmer.topitalk.controller.DatabaseHelper;
+
 /**
  * Created by Nyds on 23/05/2016.
  */
@@ -14,6 +16,8 @@ public class User {
     /**
      * Database fields
      */
+    @DatabaseField (id = true)
+    private int userId;
     @DatabaseField
     private String username;
     @DatabaseField
@@ -24,8 +28,6 @@ public class User {
     private String surname;
     @DatabaseField
     private String team; //Team of which user is part within Topicus.
-    @DatabaseField (id = true)
-    private int userId;
 
     private int userPictureId;
     private ArrayList<Post> userPosts;

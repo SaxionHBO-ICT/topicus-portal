@@ -2,6 +2,7 @@ package nl.saxion.jelmer.topitalk.model;
 
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.text.SimpleDateFormat;
@@ -15,15 +16,26 @@ import java.util.Date;
 public class Post implements Datable {
 
     private static int lastAssignedPostId = 0;
+    @DatabaseField (id = true)
     private int postId;
     private int imageId;
+    @DatabaseField
     private String postDate;
+    @DatabaseField
     private User author;
+    @DatabaseField
     private String title;
+    @DatabaseField
     private String text;
+    @DatabaseField
     private boolean isHotTopic;
+    @DatabaseField
     private int highFives; //Total number of votes for a post. Can be increased by up-voting, decreased by down-voting.
     private ArrayList<Comment> comments;
+
+    public Post() {
+        //Non-arg constructor needed by ORMLite.
+    }
 
     public Post(User author, String title, String text) {
         this.author = author;

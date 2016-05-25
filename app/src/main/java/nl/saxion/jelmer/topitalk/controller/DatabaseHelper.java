@@ -4,30 +4,64 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 
+import java.sql.SQLException;
+
 import nl.saxion.jelmer.topitalk.R;
+import nl.saxion.jelmer.topitalk.model.Comment;
+import nl.saxion.jelmer.topitalk.model.Post;
+import nl.saxion.jelmer.topitalk.model.User;
 
 /**
  * Created by Nyds on 23/05/2016.
  */
-public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
+public class DatabaseHelper {
 
-    private static final String DATABASE_NAME = "topiTalk";
+    private static final String DATABASE_NAME = "topiTalkdb";
     private static final int DATABASE_VERSION = 1;
+    private static final String databaseUrl = "jdbc:mysql:topiTalkdb:users";
+    private static DatabaseHelper dbHelper = null;
 
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    private ConnectionSource connectionSource;
+    private Dao<User, Integer> userDao;
+    private Dao<Post, Integer> postDao;
+    private Dao<Comment, Integer> commentDao;
+
+    private DatabaseHelper() {
+        try {
+            connectionSource = new JdbcConnectionSource(databaseUrl);
+            userDao = DaoManager.createDao(connectionSource, User.class);
+            postDao = DaoManager.createDao(connectionSource, Post.class);
+            commentDao = DaoManager.createDao(connectionSource, Comment.class);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
-
+    public static DatabaseHelper getInstance() {
+        if (dbHelper == null) {
+            dbHelper = new DatabaseHelper();
+        }
+        return dbHelper;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
-
+    public void addUserToDatabase(User user) {
+        try {
+            userDao.create(user);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
+    public void addPostToDatabase(Post post) {
+        try {
+            postDao.create(post);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
