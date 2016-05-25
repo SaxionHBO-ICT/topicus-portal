@@ -17,11 +17,11 @@ public class TalkModel {
         users = new ArrayList<>();
 
         //Dummy data
-        User user = new User("Hans", "1234", "Hans", "Test");
+        User user = new User("test", "1234", "Hans", "Test");
         users.add(user);
 
         for (int i = 0; i < 15; i++) {
-            postList.add(new Post(user, "HBO-ICT BV project " + i, "Dit is test text " + i + "om te testen of het listitem werkt."));
+            postList.add(new Post(user, "HBO-ICT BV project " + i, "Dit is test text " + i + " om te testen of het listitem werkt."));
         }
     }
 

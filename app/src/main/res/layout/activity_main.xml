@@ -18,11 +18,12 @@
     </ListView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/bt_fab"
+        android:id="@+id/bt_fab_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:clickable="true"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_mode_edit_24dp" />
 

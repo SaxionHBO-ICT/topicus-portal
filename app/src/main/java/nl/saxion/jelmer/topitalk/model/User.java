@@ -24,6 +24,8 @@ public class User {
     private String surname;
     @DatabaseField
     private String team; //Team of which user is part within Topicus.
+    @DatabaseField (id = true)
+    private int userId;
 
     private int userPictureId;
     private ArrayList<Post> userPosts;
@@ -38,7 +40,6 @@ public class User {
         this.password = password;
         this.name = name;
         this.surname = surname;
-        userComments = new ArrayList<>();
     }
 
     public String getUsername() {

@@ -1,13 +1,13 @@
 package nl.saxion.jelmer.topitalk.controller;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import nl.saxion.jelmer.topitalk.R;
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PostListAdapter adapter;
     private ListView postList;
+    private FloatingActionButton btNewPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         postList = (ListView) findViewById(R.id.lv_post_list);
+        btNewPost = (FloatingActionButton) findViewById(R.id.bt_fab_main);
 
         initialize();
 
         adapter = new PostListAdapter(this, TalkModel.getInstance().getPostList());
         postList.setAdapter(adapter);
+
+        btNewPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -71,4 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
