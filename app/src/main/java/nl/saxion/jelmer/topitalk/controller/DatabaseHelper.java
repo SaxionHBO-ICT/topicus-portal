@@ -1,9 +1,5 @@
 package nl.saxion.jelmer.topitalk.controller;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -23,7 +19,7 @@ public class DatabaseHelper {
 
     private static final String DATABASE_NAME = "topiTalkdb";
     private static final int DATABASE_VERSION = 1;
-    private static final String databaseUrl = "jdbc:mysql:topiTalkdb:users";
+    private static final String databaseUrl = "jdbc:mysql://localhost:3306/topiTalkdb";
     private static DatabaseHelper dbHelper = null;
 
     private ConnectionSource connectionSource;
@@ -33,7 +29,7 @@ public class DatabaseHelper {
 
     private DatabaseHelper() {
         try {
-            connectionSource = new JdbcConnectionSource(databaseUrl);
+            connectionSource = new JdbcConnectionSource(databaseUrl, "root", "root");
             userDao = DaoManager.createDao(connectionSource, User.class);
             postDao = DaoManager.createDao(connectionSource, Post.class);
             commentDao = DaoManager.createDao(connectionSource, Comment.class);
