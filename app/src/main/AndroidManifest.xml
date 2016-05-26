@@ -20,5 +20,5 @@
         <activity android:name=".controller.NewPostActivity" />
         <activity android:name=".controller.PostDetailActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

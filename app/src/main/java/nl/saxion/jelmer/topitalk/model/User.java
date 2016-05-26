@@ -5,8 +5,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.ArrayList;
 
-import nl.saxion.jelmer.topitalk.controller.DatabaseHelper;
-
 /**
  * Created by Nyds on 23/05/2016.
  */
@@ -16,25 +14,17 @@ public class User {
     /**
      * Database fields
      */
-    @DatabaseField (id = true)
+    @DatabaseField (generatedId = true)
     private int userId;
     @DatabaseField
-    private String username;
-    @DatabaseField
-    private String password;
-    @DatabaseField
-    private String name;
-    @DatabaseField
-    private String surname;
-    @DatabaseField
-    private String team; //Team of which user is part within Topicus.
+    private String username, password, name, surname, teamname;
 
     private int userPictureId;
     private ArrayList<Post> userPosts;
     private ArrayList<Comment> userComments;
 
     public User() {
-        //No-argument constructor, needed by ORMLite.
+        //No arg constructor, needed by ORMLite.
     }
 
     public User(String username, String password, String name, String surname) {
@@ -60,8 +50,8 @@ public class User {
         return surname;
     }
 
-    public String getTeam() {
-        return team;
+    public String getTeamname() {
+        return teamname;
     }
 
     public int getUserPictureId() {
@@ -80,8 +70,8 @@ public class User {
         this.password = password;
     }
 
-    public void setTeam(String team) {
-        this.team = team;
+    public void setTeamname(String teamname) {
+        this.teamname = teamname;
     }
 
     public void setUserPictureId(int userPictureId) {

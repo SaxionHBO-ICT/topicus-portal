@@ -2,34 +2,37 @@ package nl.saxion.jelmer.topitalk.model;
 
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by Nyds on 21/05/2016.
  */
+@DatabaseTable(tableName = "comments")
 public class Comment implements Datable {
 
-    private static int lastAssignedCommentId = 0;
+    @DatabaseField (generatedId = true)
     private int commentId;
-    private int inThreadId;
-    private String commentDate;
+    @DatabaseField
+    private int inThreadId, authorId;
+    @DatabaseField
+    private String commentDate, title, text;
+
     private User author;
-    private String title;
-    private String text;
+
+    public Comment() {
+        //No arg constructor, needed by ORMLite.
+    }
 
     public Comment(int inThreadId, User author, String title, String text) {
         this.inThreadId = inThreadId;
         this.author = author;
         this.title = title;
         this.text = text;
-        lastAssignedCommentId++;
-        commentId = lastAssignedCommentId;
         commentDate = generateDate();
-    }
-
-    public static int getLastAssignedCommentId() {
-        return lastAssignedCommentId;
     }
 
     public int getCommentId() {

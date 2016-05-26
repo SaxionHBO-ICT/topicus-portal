@@ -15,26 +15,23 @@ import java.util.Date;
 @DatabaseTable
 public class Post implements Datable {
 
-    private static int lastAssignedPostId = 0;
-    @DatabaseField (id = true)
+    @DatabaseField (generatedId = true)
     private int postId;
-    private int imageId;
     @DatabaseField
-    private String postDate;
+    private int authorId;
     @DatabaseField
-    private User author;
-    @DatabaseField
-    private String title;
-    @DatabaseField
-    private String text;
+    private String postDate, title, text;
     @DatabaseField
     private boolean isHotTopic;
     @DatabaseField
     private int highFives; //Total number of votes for a post. Can be increased by up-voting, decreased by down-voting.
+
+    private int imageId;
+    private User author;
     private ArrayList<Comment> comments;
 
     public Post() {
-        //Non-arg constructor needed by ORMLite.
+        //No arg constructor, needed by ORMLite.
     }
 
     public Post(User author, String title, String text) {
@@ -43,8 +40,6 @@ public class Post implements Datable {
         this.text = text;
         isHotTopic = false;
         highFives = 0;
-        lastAssignedPostId++;
-        postId = lastAssignedPostId;
         postDate = generateDate();
         comments = new ArrayList<>();
     }
@@ -56,8 +51,6 @@ public class Post implements Datable {
         isHotTopic = false;
         highFives = 0;
         this.imageId = imageId;
-        lastAssignedPostId++;
-        postId = lastAssignedPostId;
         postDate = generateDate();
         comments = new ArrayList<>();
     }
@@ -65,10 +58,6 @@ public class Post implements Datable {
     /**
      * Getters
      */
-
-    public static int getLastAssignedPostId() {
-        return lastAssignedPostId;
-    }
 
     public int getPostId() {
         return postId;
