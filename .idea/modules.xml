@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TopiTalk.iml" filepath="$PROJECT_DIR$/TopiTalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ormlite-android-4.49/ormlite-android-4.49.iml" filepath="$PROJECT_DIR$/ormlite-android-4.49/ormlite-android-4.49.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-3.0.17-ga-bin/mysql-connector-java-3.0.17-ga-bin.iml" filepath="$PROJECT_DIR$/mysql-connector-java-3.0.17-ga-bin/mysql-connector-java-3.0.17-ga-bin.iml" />
       <module fileurl="file://$PROJECT_DIR$/ormlite-core-4.49/ormlite-core-4.49.iml" filepath="$PROJECT_DIR$/ormlite-core-4.49/ormlite-core-4.49.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ormlite-jdbc-4.49/ormlite-jdbc-4.49.iml" filepath="$PROJECT_DIR$/ormlite-jdbc-4.49/ormlite-jdbc-4.49.iml" />
     </modules>
   </component>
 </project>

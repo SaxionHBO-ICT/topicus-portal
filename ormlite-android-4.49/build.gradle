@@ -1,2 +1,0 @@
-configurations.create("default")
-artifacts.add("default", file('ormlite-android-4.49-SNAPSHOT.jar'))
