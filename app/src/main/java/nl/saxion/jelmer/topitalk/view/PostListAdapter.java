@@ -12,6 +12,7 @@ import java.util.List;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.Post;
+import nl.saxion.jelmer.topitalk.model.TalkModel;
 
 /**
  * Created by Nyds on 21/05/2016.
@@ -26,7 +27,7 @@ public class PostListAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.post_list_item, parent, false);
@@ -37,6 +38,7 @@ public class PostListAdapter extends ArrayAdapter {
         tvUsername = (TextView) convertView.findViewById(R.id.tv_username_listitem);
         tvDate = (TextView) convertView.findViewById(R.id.tv_date_listitem);
         tvText = (TextView) convertView.findViewById(R.id.tv_posttext_listitem);
+        ivUpvote = (ImageView) convertView.findViewById(R.id.iv_upvote_listitem);
 
         Post post = (Post) getItem(position);
 
@@ -45,6 +47,24 @@ public class PostListAdapter extends ArrayAdapter {
         tvDate.setText(post.getPostDate());
         tvText.setText(post.getText());
 
+        if (post.getPostScore() != 0) {
+            tvPostscore.setText(""+ post.getPostScore());
+        }
+
+        if (TalkModel.getInstance().getCurrentUser().hasUserUpvotedPost(post.getPostId())) {
+            ivUpvote.setAlpha(0.5f);
+        }
+
+        ivUpvote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TalkModel.getInstance().upvotePost(position);
+                notifyDataSetChanged();
+            }
+        });
+
         return convertView;
     }
+
+
 }

@@ -14,13 +14,16 @@ public class User {
     /**
      * Database fields
      */
-    @DatabaseField (generatedId = true)
+    //@DatabaseField (generatedId = true)
     private int userId;
+    @DatabaseField (id = true)
+    private String username;
     @DatabaseField
-    private String username, password, name, surname, teamname;
+    private String password, name, surname, teamname;
 
     private int userPictureId;
     private ArrayList<Post> userPosts;
+    private ArrayList<Integer> upvotedPostIds;
     private ArrayList<Comment> userComments;
 
     public User() {
@@ -66,6 +69,16 @@ public class User {
         return userComments;
     }
 
+    public boolean hasUserUpvotedPost(int postId) {
+        if (upvotedPostIds == null) {
+            return false;
+        } else if (upvotedPostIds.contains(postId)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -76,6 +89,13 @@ public class User {
 
     public void setUserPictureId(int userPictureId) {
         this.userPictureId = userPictureId;
+    }
+
+    public void addUserUpvotedPostId(int postId) {
+        if (upvotedPostIds == null) {
+            upvotedPostIds = new ArrayList<>();
+        }
+        upvotedPostIds.add(postId);
     }
 
     public void addUserPost(Post post) {

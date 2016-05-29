@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topitalk.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +24,7 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDate = (TextView) findViewById(R.id.tv_date_post);
         tvTitle = (TextView) findViewById(R.id.tv_posttitle_post);
         tvText = (TextView) findViewById(R.id.tv_posttext_post);
+        tvPostScore = (TextView) findViewById(R.id.tv_postscore_post);
 
         Intent intent = getIntent();
         int position = intent.getIntExtra(MainActivity.POSITION_MESSAGE, 0);
@@ -34,6 +35,10 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDate.setText(post.getPostDate());
         tvTitle.setText(post.getTitle());
         tvText.setText(post.getText());
+
+        if (post.getPostScore() != 0) {
+            tvPostScore.setText("" + post.getPostScore());
+        }
 
     }
 }

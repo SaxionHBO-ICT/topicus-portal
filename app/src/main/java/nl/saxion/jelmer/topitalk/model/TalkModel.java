@@ -19,7 +19,7 @@ public class TalkModel {
         users = new ArrayList<>();
 
         //Dummy User
-        User user = new User("JelmerDuzijn", "1234", "Jelmer", "Jelmer");
+        User user = new User("test", "test", "test", "test");
         users.add(user);
     }
 
@@ -68,6 +68,14 @@ public class TalkModel {
         return result;
     }
 
+    public void upvotePost(int postId) {
+
+        if (!currentUser.hasUserUpvotedPost(postId)) {
+            currentUser.addUserUpvotedPostId(postId);
+            postList.get(postId).upvotePost();
+        }
+    }
+
     public void addUser(String userName, String password, String name, String surname) {
         users.add(new User(userName, password, name, surname));
     }
@@ -75,6 +83,10 @@ public class TalkModel {
     public void addUsertoDb(String userName, String password, String name, String surname) {
         User userToBeAdded = new User(userName, password, name, surname);
         DatabaseHelper.getInstance().addUserToDatabase(userToBeAdded);
+    }
+
+    public User findUserFromDb(String name) {
+        return DatabaseHelper.getInstance().findUserByName(name);
     }
 
     public void addPost(User author, String title, String text) {

@@ -24,7 +24,7 @@ public class Post implements Datable {
     @DatabaseField
     private boolean isHotTopic;
     @DatabaseField
-    private int highFives; //Total number of votes for a post. Can be increased by up-voting, decreased by down-voting.
+    private int postScore; //Total number of votes for a post. Can be increased by up-voting, decreased by down-voting.
 
     private int imageId;
     private User author;
@@ -39,7 +39,7 @@ public class Post implements Datable {
         this.title = title;
         this.text = text;
         isHotTopic = false;
-        highFives = 0;
+        postScore = 0;
         postDate = generateDate();
         comments = new ArrayList<>();
     }
@@ -49,7 +49,7 @@ public class Post implements Datable {
         this.title = title;
         this.text = text;
         isHotTopic = false;
-        highFives = 0;
+        postScore = 0;
         this.imageId = imageId;
         postDate = generateDate();
         comments = new ArrayList<>();
@@ -87,8 +87,8 @@ public class Post implements Datable {
         return comments;
     }
 
-    public int getHighFives() {
-        return highFives;
+    public int getPostScore() {
+        return postScore;
     }
 
     public boolean isHotTopic() {
@@ -112,17 +112,17 @@ public class Post implements Datable {
     }
 
     public void upvotePost() {
-        highFives++;
+        postScore++;
 
-        if (highFives >= 20) {
+        if (postScore >= 20) {
             isHotTopic = true;
         }
     }
 
     public void downvotePost() {
-        highFives--;
+        postScore--;
 
-        if (highFives < 20) {
+        if (postScore < 20) {
             isHotTopic = false;
         }
     }

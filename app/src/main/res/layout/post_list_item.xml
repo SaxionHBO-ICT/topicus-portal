@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/tv_posttitle_listitem"
-        android:layout_width="wrap_content"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
@@ -48,11 +48,11 @@
 
     <TextView
         android:id="@+id/tv_username_listitem"
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/tv_posttitle_listitem"
+        android:layout_toStartOf="@+id/tv_date_listitem"
         android:singleLine="true"
         android:text="@string/gebruikersnaam"
         android:textSize="10sp" />
@@ -61,9 +61,10 @@
         android:id="@+id/tv_date_listitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/tv_username_listitem"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"
         android:singleLine="true"
         android:text="@string/tv_date_placeholder"
         android:textSize="10sp" />

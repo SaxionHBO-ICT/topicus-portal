@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topitalk.activity;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import nl.saxion.jelmer.topitalk.R;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private PostListAdapter adapter;
     private ListView postList;
     private FloatingActionButton btNewPost;
+    private ImageView ivUpvote;
     public final static String POSITION_MESSAGE = "position_message";
 
     @Override
