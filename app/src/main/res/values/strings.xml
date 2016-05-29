@@ -15,4 +15,5 @@
     <string name="menu_settings">Settings</string>
     <string name="tv_new_post">Nieuw bericht</string>
     <string name="et_write_comment">Schrijf een reactie...</string>
+    <string name="save_credentials">Bewaar gegevens</string>
 </resources>

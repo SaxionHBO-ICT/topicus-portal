@@ -12,7 +12,7 @@ import java.util.List;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.Post;
-import nl.saxion.jelmer.topitalk.model.TalkModel;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 /**
  * Created by Nyds on 21/05/2016.
@@ -51,14 +51,14 @@ public class PostListAdapter extends ArrayAdapter {
             tvPostscore.setText(""+ post.getPostScore());
         }
 
-        if (TalkModel.getInstance().getCurrentUser().hasUserUpvotedPost(post.getPostId())) {
+        if (TopiCoreModel.getInstance().getCurrentUser().hasUserUpvotedPost(post.getPostId())) {
             ivUpvote.setAlpha(0.5f);
         }
 
         ivUpvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TalkModel.getInstance().upvotePost(position);
+                TopiCoreModel.getInstance().upvotePost(position);
                 notifyDataSetChanged();
             }
         });

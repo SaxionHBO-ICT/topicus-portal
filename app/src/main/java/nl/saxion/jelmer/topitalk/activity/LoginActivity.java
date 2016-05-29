@@ -1,19 +1,21 @@
 package nl.saxion.jelmer.topitalk.activity;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.TalkModel;
-import nl.saxion.jelmer.topitalk.model.User;
+import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topitalk.controller.LoginHandler;
+import nl.saxion.jelmer.topitalk.controller.TextFormatter;
 
 /**
  * Created by Nyds on 23/05/2016.
@@ -23,16 +25,29 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUser, etPassword;
     private Button btLogin;
     private TextView tvNewUser;
+    private CheckBox cbSave;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
+
         etUser = (EditText) findViewById(R.id.et_user);
         etPassword = (EditText) findViewById(R.id.et_password);
         btLogin = (Button) findViewById(R.id.bt_login);
         tvNewUser = (TextView) findViewById(R.id.tv_new_user);
+        cbSave = (CheckBox) findViewById(R.id.cb_remember_details);
+
+        if (preferences.contains("username")) {
+            cbSave.setChecked(true);
+            etUser.setText(preferences.getString("username", ""));
+            etPassword.setText(preferences.getString("password", ""));
+        }
 
         tvNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,50 +64,33 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        etUser.setOnFocusChangeListener(new OnFocusChangeListener());
-        etPassword.setOnFocusChangeListener(new OnFocusChangeListener());
-
-
+        etUser.setOnFocusChangeListener(new KeyboardFocusHandler(this));
+        etPassword.setOnFocusChangeListener(new KeyboardFocusHandler(this));
     }
 
     private void login() {
 
-        User user = TalkModel.getInstance().findUserByUsername(getFormattedTextFromField(etUser));
+        String username = TextFormatter.getFormattedTextFromField(etUser);
+        String password = TextFormatter.getFormattedTextFromField(etPassword);
 
-        if (user != null && user.getPassword().equals(getFormattedTextFromField(etPassword))) {
-            TalkModel.getInstance().setCurrentUser(user);
+        if (LoginHandler.login(username, password)) {
+
+            if (cbSave.isChecked()) {
+                editor.putString("username", username);
+                editor.putString("password", password);
+                editor.apply();
+            } else {
+                editor.remove("username");
+                editor.remove("password");
+                editor.apply();
+            }
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+
         } else {
             Toast.makeText(LoginActivity.this, "Gegevens onjuist. Controleer uw invoer.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private String getFormattedTextFromField(EditText field) {
-        return field.getText().toString().replaceAll(" ", "");
-    }
-
-    /**
-     * Listener for EditText fields to call hideKeyBoard on focus change.
-     */
-    private class OnFocusChangeListener implements View.OnFocusChangeListener {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (!hasFocus) {
-                hideKeyboard(v);
-            }
-        }
-    }
-
-    /**
-     * Helper method to hide the keyboard.
-     *
-     * @param view The view whose state has changed.
-     */
-    private void hideKeyboard(View view) {
-
-        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    }
 }

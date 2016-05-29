@@ -7,28 +7,29 @@ import nl.saxion.jelmer.topitalk.controller.DatabaseHelper;
 /**
  * Created by Nyds on 20/05/2016.
  */
-public class TalkModel {
+public class TopiCoreModel {
 
     private User currentUser;
-    private static TalkModel talkModel = null;
+    private static TopiCoreModel topiCoreModel = null;
     private ArrayList<Post> postList;
     private ArrayList<User> users;
 
-    private TalkModel() {
+    private TopiCoreModel() {
         postList = new ArrayList<>();
         users = new ArrayList<>();
 
         //Dummy User
-        User user = new User("test", "test", "test", "test");
+        User user = new User("Topicus", "test", "test", "test");
         users.add(user);
+        generateDummyData();
     }
 
-    public static TalkModel getInstance() {
+    public static TopiCoreModel getInstance() {
 
-        if (talkModel == null) {
-            talkModel = new TalkModel();
+        if (topiCoreModel == null) {
+            topiCoreModel = new TopiCoreModel();
         }
-        return talkModel;
+        return topiCoreModel;
     }
 
     public User getCurrentUser() {
@@ -100,5 +101,14 @@ public class TalkModel {
 
     public void logoutCurrentUser() {
         currentUser = null;
+    }
+
+    private void generateDummyData() {
+        postList.add(new Post(users.get(0), "Over Topicus", "Topicus ontwikkelt nieuwe dienstverleningsconcepten waarbij de mogelijkheden van moderne technologie optimaal benut worden."));
+        postList.add(new Post(users.get(0), "Visie", "Topicus is werkzaam in de sectoren Finance, Onderwijs, Overheid en Zorg. Wij ontwikkelen nieuwe dienstverleningsconcepten voor onze klanten waarbij de mogelijkheden van moderne technologie optimaal benut worden."));
+        postList.add(new Post(users.get(0), "Ketenintegratie", "Topicus zorgt met kennis en techniek voor beter functionerende ketens ten behoeve van alle stakeholders in die keten. Topicus gaat uit van het idee dat instellingen en bedrijven niet op zichzelf staan, maar deel uitmaken van een keten. Het optimaliseren van de informatieuitwisseling binnen die keten, dat is waar we goed in zijn."));
+        postList.add(new Post(users.get(0), "SaaS", "Topicus biedt het grootste deel van haar softwareoplossingen aan als Software as a Service (SaaS), ook wel bekend als Software on Demand. De door Topicus ontwikkelde software is webbased, benaderbaar via alle browsers en wordt aangeboden inclusief hosting, onderhoud en beheer."));
+        postList.add(new Post(users.get(0), "Governance", "Topicus is qua omvang een serieuze speler op de ICT-markt geworden. Hierdoor is ook de noodzaak tot risicobeheersing - het garanderen van veiligheid en betrouwbaarheid van onze producten - steeds sterker geworden."));
+        postList.add(new Post(users.get(0), "Kalender", "Topicus is te vinden op vakbeurzen, symposia, carrière-events en congressen. En we organiseren zo af en toe ook zelf een spraakmakend evenement."));
     }
 }

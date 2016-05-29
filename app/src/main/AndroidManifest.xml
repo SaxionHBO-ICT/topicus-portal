@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".activity.RegisterUserActivity" />
         <activity android:name=".activity.NewPostActivity" />
-        <activity android:name=".activity.PostDetailActivity"></activity>
+        <activity android:name=".activity.PostDetailActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

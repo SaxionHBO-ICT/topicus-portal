@@ -1,16 +1,15 @@
 package nl.saxion.jelmer.topitalk.activity;
 
-import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.TalkModel;
+import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -30,9 +29,11 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isPostFormFilled()) {
-                    TalkModel.getInstance().addPost(TalkModel.getInstance().getCurrentUser(),
-                            etPostTitle.getText().toString(),
-                            etPostText.getText().toString());
+
+                    String title = etPostTitle.getText().toString();
+                    String text = etPostText.getText().toString();
+
+                    TopiCoreModel.getInstance().addPost(TopiCoreModel.getInstance().getCurrentUser(), title, text);
                     finish();
                 } else {
                     Toast.makeText(NewPostActivity.this, "Titel- en berichtveld mogen niet leeg zijn.", Toast.LENGTH_SHORT).show();
@@ -40,35 +41,11 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-        etPostTitle.setOnFocusChangeListener(new OnFocusChangeListener());
-        etPostText.setOnFocusChangeListener(new OnFocusChangeListener());
+        etPostTitle.setOnFocusChangeListener(new KeyboardFocusHandler(this));
+        etPostText.setOnFocusChangeListener(new KeyboardFocusHandler(this));
     }
 
     private boolean isPostFormFilled() {
         return !etPostTitle.getText().toString().equals("") && !etPostText.getText().toString().equals("");
-    }
-
-    /**
-     * Listener for EditText fields to call hideKeyBoard on focus change.
-     *
-     */
-    private class OnFocusChangeListener implements View.OnFocusChangeListener {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (!hasFocus) {
-                hideKeyboard(v);
-            }
-        }
-    }
-
-    /**
-     * Helper method to hide the keyboard.
-     *
-     * @param view The view whose state has changed.
-     */
-    private void hideKeyboard(View view) {
-
-        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

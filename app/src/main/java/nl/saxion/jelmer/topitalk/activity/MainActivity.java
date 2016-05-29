@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.TalkModel;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostListAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
 
-        adapter = new PostListAdapter(this, TalkModel.getInstance().getPostList());
+        adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostList());
         postList.setAdapter(adapter);
 
         btNewPost.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isUserLoggedIn() {
-        return TalkModel.getInstance().getCurrentUser() != null;
+        return TopiCoreModel.getInstance().getCurrentUser() != null;
     }
 
     private void initialize() {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                TalkModel.getInstance().logoutCurrentUser();
+                TopiCoreModel.getInstance().logoutCurrentUser();
                 initialize();
                 return true;
             default:

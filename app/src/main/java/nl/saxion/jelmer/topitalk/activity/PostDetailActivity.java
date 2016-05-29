@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.Post;
-import nl.saxion.jelmer.topitalk.model.TalkModel;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 public class PostDetailActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class PostDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra(MainActivity.POSITION_MESSAGE, 0);
 
-        Post post = TalkModel.getInstance().getPostList().get(position);
+        Post post = TopiCoreModel.getInstance().getPostList().get(position);
 
         tvUsername.setText(post.getAuthor().getUsername());
         tvDate.setText(post.getPostDate());
