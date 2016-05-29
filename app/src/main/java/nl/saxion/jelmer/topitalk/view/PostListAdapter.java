@@ -48,11 +48,16 @@ public class PostListAdapter extends ArrayAdapter {
         tvText.setText(post.getText());
 
         if (post.getPostScore() != 0) {
+            tvPostscore.setVisibility(View.VISIBLE);
             tvPostscore.setText(""+ post.getPostScore());
+        } else {
+            tvPostscore.setVisibility(View.INVISIBLE);
         }
 
-        if (TopiCoreModel.getInstance().getCurrentUser().hasUserUpvotedPost(post.getPostId())) {
+        if (TopiCoreModel.getInstance().getCurrentUser().hasUserUpvotedPost(position)) {
             ivUpvote.setAlpha(0.5f);
+        } else {
+            ivUpvote.setAlpha(1f);
         }
 
         ivUpvote.setOnClickListener(new View.OnClickListener() {
