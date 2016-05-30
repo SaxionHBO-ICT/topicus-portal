@@ -59,7 +59,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private boolean isFormFilledCorrectly() {
-        return isUsernameUnique(etUsername.getText().toString()) && doPasswordsMatch() && isNameFilled();
+        return isUsernameUnique(TextFormatter.getFormattedTextFromField(etUsername)) && doPasswordsMatch() && isNameFilled();
     }
 
     private boolean isUsernameUnique(String name) {

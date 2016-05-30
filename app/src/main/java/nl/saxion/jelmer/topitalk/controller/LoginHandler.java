@@ -11,7 +11,7 @@ import nl.saxion.jelmer.topitalk.model.User;
 public abstract class LoginHandler {
 
     /**
-     * Method the validate a login attempt.
+     * Method to validate a login attempt.
      * If true, the user is set in TopiCoreModel.
      *
      * @param username Username parameter from login attempt
