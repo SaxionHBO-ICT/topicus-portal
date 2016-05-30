@@ -104,8 +104,16 @@ public class TopiCoreModel {
     }
 
     private void generateDummyData() {
-        postList.add(new Post(users.get(0), "Over Topicus", "Topicus ontwikkelt nieuwe dienstverleningsconcepten waarbij de mogelijkheden van moderne technologie optimaal benut worden."));
-        postList.add(new Post(users.get(0), "Visie", "Topicus is werkzaam in de sectoren Finance, Onderwijs, Overheid en Zorg. Wij ontwikkelen nieuwe dienstverleningsconcepten voor onze klanten waarbij de mogelijkheden van moderne technologie optimaal benut worden."));
+
+        Post post = new Post(users.get(0), "Over Topicus", "Topicus ontwikkelt nieuwe dienstverleningsconcepten waarbij de mogelijkheden van moderne technologie optimaal benut worden.");
+        post.setPostScore(20);
+        post.setHotTopic(true);
+        postList.add(post);
+
+        Post post1 = new Post(users.get(0), "Visie", "Topicus is werkzaam in de sectoren Finance, Onderwijs, Overheid en Zorg. Wij ontwikkelen nieuwe dienstverleningsconcepten voor onze klanten waarbij de mogelijkheden van moderne technologie optimaal benut worden.");
+        post1.setPostScore(19);
+        postList.add(post1);
+
         postList.add(new Post(users.get(0), "Ketenintegratie", "Topicus zorgt met kennis en techniek voor beter functionerende ketens ten behoeve van alle stakeholders in die keten. Topicus gaat uit van het idee dat instellingen en bedrijven niet op zichzelf staan, maar deel uitmaken van een keten. Het optimaliseren van de informatieuitwisseling binnen die keten, dat is waar we goed in zijn."));
         postList.add(new Post(users.get(0), "SaaS", "Topicus biedt het grootste deel van haar softwareoplossingen aan als Software as a Service (SaaS), ook wel bekend als Software on Demand. De door Topicus ontwikkelde software is webbased, benaderbaar via alle browsers en wordt aangeboden inclusief hosting, onderhoud en beheer."));
         postList.add(new Post(users.get(0), "Governance", "Topicus is qua omvang een serieuze speler op de ICT-markt geworden. Hierdoor is ook de noodzaak tot risicobeheersing - het garanderen van veiligheid en betrouwbaarheid van onze producten - steeds sterker geworden."));

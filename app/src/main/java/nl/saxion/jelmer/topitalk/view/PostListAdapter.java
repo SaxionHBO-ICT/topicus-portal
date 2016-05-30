@@ -19,7 +19,7 @@ import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
  */
 public class PostListAdapter extends ArrayAdapter {
 
-    private ImageView ivUpvote, ivDownvote;
+    private ImageView ivUpvote, ivHotIcon;
     private TextView tvPostscore, tvTitle, tvUsername, tvDate, tvText;
 
     public PostListAdapter(Context context, List<Post> objects) {
@@ -37,6 +37,7 @@ public class PostListAdapter extends ArrayAdapter {
         tvTitle = (TextView) convertView.findViewById(R.id.tv_posttitle_listitem);
         tvUsername = (TextView) convertView.findViewById(R.id.tv_username_listitem);
         tvDate = (TextView) convertView.findViewById(R.id.tv_date_listitem);
+        ivHotIcon = (ImageView) convertView.findViewById(R.id.iv_hot_icon);
         tvText = (TextView) convertView.findViewById(R.id.tv_posttext_listitem);
         ivUpvote = (ImageView) convertView.findViewById(R.id.iv_upvote_listitem);
 
@@ -58,6 +59,12 @@ public class PostListAdapter extends ArrayAdapter {
             ivUpvote.setAlpha(0.5f);
         } else {
             ivUpvote.setAlpha(1f);
+        }
+
+        if (post.isHotTopic()) {
+            ivHotIcon.setVisibility(View.VISIBLE);
+        } else {
+            ivHotIcon.setVisibility(View.INVISIBLE);
         }
 
         ivUpvote.setOnClickListener(new View.OnClickListener() {

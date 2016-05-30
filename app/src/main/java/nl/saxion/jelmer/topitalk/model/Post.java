@@ -24,7 +24,7 @@ public class Post implements Datable {
     @DatabaseField
     private boolean isHotTopic;
     @DatabaseField
-    private int postScore; //Total number of votes for a post. Can be increased by up-voting, decreased by down-voting.
+    private int postScore; //Total number of votes for a post. Can be increased by up-voting.
 
     private int imageId;
     private User author;
@@ -107,6 +107,14 @@ public class Post implements Datable {
         this.imageId = imageId;
     }
 
+    public void setPostScore(int postScore) { //Debug method to manually set a post's score.
+        this.postScore = postScore;
+    }
+
+    public void setHotTopic(boolean isHotTopic) { //Debug method to manually flag a post as hot topic.
+        this.isHotTopic = isHotTopic;
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }
@@ -116,14 +124,6 @@ public class Post implements Datable {
 
         if (postScore >= 20) {
             isHotTopic = true;
-        }
-    }
-
-    public void downvotePost() {
-        postScore--;
-
-        if (postScore < 20) {
-            isHotTopic = false;
         }
     }
 
