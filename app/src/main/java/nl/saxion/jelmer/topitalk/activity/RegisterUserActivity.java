@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topitalk.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.TalkModel;
+import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topitalk.controller.TextFormatter;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 public class RegisterUserActivity extends AppCompatActivity {
 
@@ -33,17 +35,26 @@ public class RegisterUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isFormFilledCorrectly()) {
-                    TalkModel.getInstance().addUser(etUsername.getText().toString(),
-                            etPassword.getText().toString(),
-                            etName.getText().toString(),
-                            etSurname.getText().toString());
-                    Toast.makeText(RegisterUserActivity.this, "Account met naam: " + etUsername.getText().toString() + " is voor u geregistreerd.", Toast.LENGTH_SHORT).show();
+
+                    String username = TextFormatter.getFormattedTextFromField(etUsername);
+                    String password = TextFormatter.getFormattedTextFromField(etPassword);
+                    String name = TextFormatter.getFormattedTextFromField(etName);
+                    String surname = TextFormatter.getFormattedTextFromField(etSurname);
+
+                    TopiCoreModel.getInstance().addUser(username, password, name, surname);
+                    Toast.makeText(RegisterUserActivity.this, "Account met naam: " + username + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Controleer of alle velden juist zijn ingevuld.", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        etUsername.setOnFocusChangeListener(new KeyboardFocusHandler(this));
+        etPassword.setOnFocusChangeListener(new KeyboardFocusHandler(this));
+        etRepeatPassword.setOnFocusChangeListener(new KeyboardFocusHandler(this));
+        etName.setOnFocusChangeListener(new KeyboardFocusHandler(this));
+        etSurname.setOnFocusChangeListener(new KeyboardFocusHandler(this));
 
     }
 
@@ -52,7 +63,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private boolean isUsernameUnique(String name) {
-        return TalkModel.getInstance().isUsernameUnique(name);
+        return TopiCoreModel.getInstance().isUsernameUnique(name);
     }
 
     private boolean doPasswordsMatch() {

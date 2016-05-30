@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/topicusYellow"
-    tools:context="nl.saxion.jelmer.topitalk.controller.RegisterUserActivity">
+    tools:context=".activity.RegisterUserActivity"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/iv_icon_register"
@@ -29,12 +31,13 @@
         android:id="@+id/et_user_register"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:background="@color/topicusWhite"
-        android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/iv_icon_register"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
-        android:singleLine="true"/>
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:background="@drawable/edit_text_border"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:id="@+id/tv_password_register"
@@ -51,13 +54,14 @@
         android:id="@+id/et_password_register"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:background="@color/topicusWhite"
-        android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/et_user_register"
-        android:layout_marginTop="5dp"
-        android:inputType="textPassword"
         android:layout_marginStart="5dp"
-        android:singleLine="true"/>
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:id="@+id/tv_password_register_repeat"
@@ -74,21 +78,22 @@
         android:id="@+id/et_password_register_repeat"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:background="@color/topicusWhite"
-        android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/et_password_register"
-        android:layout_marginTop="5dp"
-        android:inputType="textPassword"
         android:layout_marginStart="5dp"
-        android:singleLine="true"/>
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <View
         android:layout_width="300dp"
-        android:layout_centerHorizontal="true"
         android:layout_height="1dp"
         android:layout_below="@+id/et_password_register_repeat"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/tv_name_register"
@@ -97,7 +102,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_password_register_repeat"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="@string/name"
         android:textColor="@color/colorPrimary" />
 
@@ -105,13 +110,14 @@
         android:id="@+id/et_name_register"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:background="@color/topicusWhite"
-        android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/et_password_register_repeat"
-        android:layout_marginTop="35dp"
-        android:inputType="textPersonName"
         android:layout_marginStart="5dp"
-        android:singleLine="true"/>
+        android:layout_marginTop="35dp"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:id="@+id/tv_surname_register"
@@ -128,23 +134,24 @@
         android:id="@+id/et_surname_register"
         android:layout_width="200dp"
         android:layout_height="25dp"
-        android:background="@color/topicusWhite"
-        android:layout_toEndOf="@+id/tv_user_register"
         android:layout_below="@+id/et_name_register"
-        android:layout_marginTop="5dp"
-        android:inputType="textPersonName"
         android:layout_marginStart="5dp"
-        android:singleLine="true"/>
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/tv_user_register"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <Button
         android:id="@+id/bt_register"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
+        android:background="@color/colorPrimary"
         android:text="@string/bt_register"
-        android:textColor="@color/topicusWhite"/>
+        android:textColor="@color/topicusWhite" />
 
 </RelativeLayout>

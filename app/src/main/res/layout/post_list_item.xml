@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/post_item_border"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_upvote_listitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/upvote_circled" />
+
+    <ImageView
+        android:id="@+id/iv_hot_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/iv_upvote_listitem"
+        android:src="@drawable/hot_icon" />
+
+    <TextView
+        android:id="@+id/tv_upvotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_upvote_listitem"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Points:"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_postscore_listitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_upvotes"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="13.5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/tv_postscore_placeholder"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_username_listitem"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/tv_date_listitem"
+        android:singleLine="true"
+        android:text="@string/gebruikersnaam"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_posttitle_listitem"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/iv_hot_icon"
+        android:layout_toStartOf="@id/tv_username_listitem"
+        android:singleLine="true"
+        android:text="@string/tv_posttitle_placeholder"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_date_listitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:text="@string/tv_date_placeholder"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_posttext_listitem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_posttitle_listitem"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/iv_upvote_listitem"
+        android:maxLines="4" />
+
+</RelativeLayout>

@@ -2,6 +2,9 @@ package nl.saxion.jelmer.topitalk.model;
 
 import android.support.annotation.NonNull;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,23 +12,34 @@ import java.util.Date;
 /**
  * Created by Nyds on 21/05/2016.
  */
+@DatabaseTable
 public class Post implements Datable {
 
-    private static int lastAssignedPostId = 0;
+    @DatabaseField (generatedId = true)
     private int postId;
+    @DatabaseField
+    private int authorId;
+    @DatabaseField
+    private String postDate, title, text;
+    @DatabaseField
+    private boolean isHotTopic;
+    @DatabaseField
+    private int postScore; //Total number of votes for a post. Can be increased by up-voting.
+
     private int imageId;
-    private String postDate;
     private User author;
-    private String title;
-    private String text;
     private ArrayList<Comment> comments;
+
+    public Post() {
+        //No arg constructor, needed by ORMLite.
+    }
 
     public Post(User author, String title, String text) {
         this.author = author;
         this.title = title;
         this.text = text;
-        lastAssignedPostId++;
-        postId = lastAssignedPostId;
+        isHotTopic = false;
+        postScore = 0;
         postDate = generateDate();
         comments = new ArrayList<>();
     }
@@ -34,9 +48,9 @@ public class Post implements Datable {
         this.author = author;
         this.title = title;
         this.text = text;
+        isHotTopic = false;
+        postScore = 0;
         this.imageId = imageId;
-        lastAssignedPostId++;
-        postId = lastAssignedPostId;
         postDate = generateDate();
         comments = new ArrayList<>();
     }
@@ -44,10 +58,6 @@ public class Post implements Datable {
     /**
      * Getters
      */
-
-    public static int getLastAssignedPostId() {
-        return lastAssignedPostId;
-    }
 
     public int getPostId() {
         return postId;
@@ -77,6 +87,14 @@ public class Post implements Datable {
         return comments;
     }
 
+    public int getPostScore() {
+        return postScore;
+    }
+
+    public boolean isHotTopic() {
+        return isHotTopic;
+    }
+
     /**
      * Setters
      */
@@ -89,8 +107,24 @@ public class Post implements Datable {
         this.imageId = imageId;
     }
 
+    public void setPostScore(int postScore) { //Debug method to manually set a post's score.
+        this.postScore = postScore;
+    }
+
+    public void setHotTopic(boolean isHotTopic) { //Debug method to manually flag a post as hot topic.
+        this.isHotTopic = isHotTopic;
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+
+    public void upvotePost() {
+        postScore++;
+
+        if (postScore >= 20) {
+            isHotTopic = true;
+        }
     }
 
     /**

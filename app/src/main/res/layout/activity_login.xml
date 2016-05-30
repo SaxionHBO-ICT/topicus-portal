@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/topicusYellow"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <ImageView
@@ -28,8 +31,9 @@
         android:layout_below="@+id/tv_user"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:background="@android:color/white"
-        android:singleLine="true" />
+        android:background="@drawable/edit_text_border"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:id="@+id/tv_password"
@@ -48,17 +52,39 @@
         android:layout_below="@+id/tv_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
+        android:background="@drawable/edit_text_border"
         android:inputType="textPassword"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
+
+    <TextView
+        android:id="@+id/tv_save_credentials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:layout_marginEnd="81dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/save_credentials"
+        android:textSize="12sp" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_remember_details"
+        style="@style/AlertDialog.AppCompat.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_password"
+        android:layout_toEndOf="@+id/tv_save_credentials"
+
+        app:buttonTint="@color/topicusBlue" />
 
     <TextView
         android:id="@+id/tv_new_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_password"
+        android:layout_below="@+id/cb_remember_details"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
         android:text="@string/new_account"
         android:textSize="12sp" />
