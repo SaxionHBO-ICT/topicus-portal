@@ -48,10 +48,10 @@ public class TopiCoreModel {
         this.currentUser = user;
     }
 
-    public boolean isUsernameUnique(String name) {
+    public boolean isUsernameUnique(String username) {
 
         for (User user : users) {
-            if (user.getUsername().equals(name)) {
+            if (user.getUsername().equals(username)) {
                 return false;
             }
         }
