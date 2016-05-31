@@ -11,14 +11,10 @@ import java.util.Date;
 /**
  * Created by Nyds on 21/05/2016.
  */
-@DatabaseTable(tableName = "comments")
+
 public class Comment implements Datable {
 
-    @DatabaseField (generatedId = true)
-    private int commentId;
-    @DatabaseField
-    private int inThreadId, authorId;
-    @DatabaseField
+    private int commentId, inThreadId, authorId;
     private String commentDate, title, text;
 
     private User author;

@@ -59,7 +59,7 @@ public abstract class LoginHandler {
         return false;
     }
 
-    private static String encryptPassword(String password) {
+    public static String encryptPassword(String password) {
         BasicTextEncryptor bte = new BasicTextEncryptor();
         bte.setPassword(AUTH_KEY);
         return bte.encrypt(password);

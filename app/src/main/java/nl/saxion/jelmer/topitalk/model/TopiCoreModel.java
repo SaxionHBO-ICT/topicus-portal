@@ -2,7 +2,7 @@ package nl.saxion.jelmer.topitalk.model;
 
 import java.util.ArrayList;
 
-import nl.saxion.jelmer.topitalk.controller.DatabaseHelper;
+import nl.saxion.jelmer.topitalk.controller.LoginHandler;
 
 /**
  * Created by Nyds on 20/05/2016.
@@ -19,7 +19,7 @@ public class TopiCoreModel {
         users = new ArrayList<>();
 
         //Dummy User
-        User user = new User("Topicus", "test", "test", "test");
+        User user = new User("Topicus", LoginHandler.encryptPassword("test"), "test", "test");
         users.add(user);
         generateDummyData();
     }
@@ -81,22 +81,8 @@ public class TopiCoreModel {
         users.add(new User(userName, password, name, surname));
     }
 
-    public void addUsertoDb(String userName, String password, String name, String surname) {
-        User userToBeAdded = new User(userName, password, name, surname);
-        DatabaseHelper.getInstance().addUserToDatabase(userToBeAdded);
-    }
-
-    public User findUserFromDb(String name) {
-        return DatabaseHelper.getInstance().findUserByName(name);
-    }
-
     public void addPost(User author, String title, String text) {
         postList.add(new Post(author, title, text));
-    }
-
-    public void addPostToDb(User author, String title, String text) {
-        Post postToBeAdded = new Post(author, title, text);
-        DatabaseHelper.getInstance().addPostToDatabase(postToBeAdded);
     }
 
     public void logoutCurrentUser() {

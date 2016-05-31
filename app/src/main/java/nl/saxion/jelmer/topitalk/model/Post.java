@@ -12,27 +12,16 @@ import java.util.Date;
 /**
  * Created by Nyds on 21/05/2016.
  */
-@DatabaseTable
 public class Post implements Datable {
 
-    @DatabaseField (generatedId = true)
-    private int postId;
-    @DatabaseField
-    private int authorId;
-    @DatabaseField
+    private int postId, authorId;
     private String postDate, title, text;
-    @DatabaseField
     private boolean isHotTopic;
-    @DatabaseField
     private int postScore; //Total number of votes for a post. Can be increased by up-voting.
 
     private int imageId;
     private User author;
     private ArrayList<Comment> comments;
-
-    public Post() {
-        //No arg constructor, needed by ORMLite.
-    }
 
     public Post(User author, String title, String text) {
         this.author = author;
