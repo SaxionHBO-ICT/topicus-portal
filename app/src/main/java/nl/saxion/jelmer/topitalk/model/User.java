@@ -1,34 +1,22 @@
 package nl.saxion.jelmer.topitalk.model;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 import java.util.ArrayList;
 
 /**
  * Created by Nyds on 23/05/2016.
  */
-@DatabaseTable(tableName = "users")
 public class User {
 
     /**
      * Database fields
      */
-    //@DatabaseField (generatedId = true)
     private int userId;
-    @DatabaseField (id = true)
-    private String username;
-    @DatabaseField
-    private String password, name, surname, teamname;
+    private String username, password, name, surname, teamname;
 
     private int userPictureId;
     private ArrayList<Post> userPosts;
     private ArrayList<Integer> upvotedPostIds;
     private ArrayList<Comment> userComments;
-
-    public User() {
-        //No arg constructor, needed by ORMLite.
-    }
 
     public User(String username, String password, String name, String surname) {
         this.username = username;

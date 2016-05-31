@@ -1,1 +1,1 @@
-include ':app', ':jasypt-1.9.2'
+include ':app', ':jasypt-1.9.2', ':retrofit-2.0.2', ':rxandroid-1.2.0'
