@@ -8,7 +8,6 @@ import nl.saxion.jelmer.topitalk.model.User;
 /**
  * Login helper class that validates a login attempt.
  * Handles user registration.
- *
  * Uses jasypt to encrypt & decrypt passwords.
  *
  * @author Jelmer Duzijn
@@ -27,7 +26,7 @@ public abstract class LoginHandler {
      */
     public static boolean login(String username, String password) {
 
-        User user = TopiCoreModel.getInstance().findUserByUsername(username);
+        User user = ApiHandler.getInstance().getUserByName(username);
 
         if (user != null) {
             String encryptPassword = encryptPassword(password);
@@ -45,18 +44,14 @@ public abstract class LoginHandler {
      *
      * @param username The username that is sent by the activity.
      * @param password The password that is sent by the activity.
-     * @param name The name that is sent by the activity.
-     * @param surname The surname that is sent by the activity.
+     * @param name     The name that is sent by the activity.
+     * @param surname  The surname that is sent by the activity.
      * @return true if the username is unique, false if not.
      */
     public static boolean registerUser(String username, String password, String name, String surname) {
-        if (TopiCoreModel.getInstance().isUsernameUnique(username)) {
 
-            String encryptPassword = encryptPassword(password);
-            TopiCoreModel.getInstance().addUser(username, encryptPassword, name, surname);
-            return true;
-        }
-        return false;
+        String encryptPassword = encryptPassword(password);
+        return ApiHandler.getInstance().addUserToDb(new User(username, encryptPassword, name, surname));
     }
 
     public static String encryptPassword(String password) {

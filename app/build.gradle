@@ -18,14 +18,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile	'commons-io:commons-io:2.4'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.2.0'
     compile project(':jasypt-1.9.2')
-    compile project(':retrofit-2.0.2')
-    compile project(':rxandroid-1.2.0')
+    compile project(':gson-2.6.2')
 }

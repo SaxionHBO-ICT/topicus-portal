@@ -11,9 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/gson-2.6.2" />
             <option value="$PROJECT_DIR$/jasypt-1.9.2" />
-            <option value="$PROJECT_DIR$/retrofit-2.0.2" />
-            <option value="$PROJECT_DIR$/rxandroid-1.2.0" />
           </set>
         </option>
       </GradleProjectSettings>
