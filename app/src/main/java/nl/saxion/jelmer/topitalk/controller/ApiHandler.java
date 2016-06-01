@@ -33,6 +33,7 @@ public class ApiHandler {
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
     private static final String API_GET_POSTS_URL = API_URL + "posts/";
+    private static final String API_NEW_POST_URL = API_URL + "posts";
 
     /**
      * Connection time-out constants.
@@ -194,6 +195,19 @@ public class ApiHandler {
         return null;
     }
 
+    public boolean addPostToDb(Post post) {
+
+        AddPostTask addPostTask = new AddPostTask();
+        addPostTask.execute(post);
+
+        try {
+            return addPostTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public class GetPostListTask extends AsyncTask<Void, Void, ArrayList<Post>> {
 
         @Override
@@ -221,6 +235,49 @@ public class ApiHandler {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+    public class AddPostTask extends AsyncTask<Post, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Post... params) {
+
+            //Get the data from the Post object.
+            int userId = params[0].getUserId();
+            String authorUsername = params[0].getAuthorUsername();
+            String title = params[0].getTitle();
+            String text = params[0].getText();
+
+            try {
+                //Open a new connection
+                URL url = new URL(API_NEW_POST_URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setConnectTimeout(CONN_TIMEOUT);
+
+                //Write the data to the output stream and flush it.
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("userId=" + userId + "&authorUsername=" + authorUsername + "&title=" + title + "&text=" + text);
+                out.flush();
+
+                //Close the stream.
+                out.close();
+
+                //Check http response code, close the connection regardless.
+                if (conn.getResponseCode() == 201) {
+                    conn.disconnect();
+                    return true;
+                } else {
+                    conn.disconnect();
+                    return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
         }
     }
 
