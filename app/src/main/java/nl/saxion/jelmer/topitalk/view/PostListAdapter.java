@@ -44,7 +44,7 @@ public class PostListAdapter extends ArrayAdapter {
         Post post = (Post) getItem(position);
 
         tvTitle.setText(post.getTitle());
-        tvUsername.setText(post.getAuthor().getUsername());
+        tvUsername.setText(post.getAuthorUsername());
         tvDate.setText(post.getPostDate());
         tvText.setText(post.getText());
 

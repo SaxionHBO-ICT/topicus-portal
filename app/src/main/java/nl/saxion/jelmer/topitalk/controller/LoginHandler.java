@@ -26,12 +26,12 @@ public abstract class LoginHandler {
      */
     public static boolean login(String username, String password) {
 
-        User user = ApiHandler.getInstance().getUserByName(username);
+        User user = ApiHandler.getInstance().getUserByName(username); //Try to get the user from the database by its name.
 
         if (user != null) {
-            String encryptPassword = encryptPassword(password);
-            if (decryptPassword(user.getPassword()).equals(decryptPassword(encryptPassword))) {
-                TopiCoreModel.getInstance().setCurrentUser(user);
+            String encryptPassword = encryptPassword(password); //Encrypt the password.
+            if (decryptPassword(user.getPassword()).equals(decryptPassword(encryptPassword))) { //Decrypt the passwords & compare.
+                TopiCoreModel.getInstance().setCurrentUser(user); //If passwords match, login the user.
                 return true;
             }
         }

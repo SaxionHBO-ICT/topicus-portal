@@ -33,7 +33,7 @@ public class NewPostActivity extends AppCompatActivity {
                     String title = etPostTitle.getText().toString();
                     String text = etPostText.getText().toString();
 
-                    TopiCoreModel.getInstance().addPost(TopiCoreModel.getInstance().getCurrentUser(), title, text);
+                    TopiCoreModel.getInstance().addPost(TopiCoreModel.getInstance().getCurrentUser().getUserId(), TopiCoreModel.getInstance().getCurrentUser().getUsername(), title, text);
                     finish();
                 } else {
                     Toast.makeText(NewPostActivity.this, "Titel- en berichtveld mogen niet leeg zijn.", Toast.LENGTH_SHORT).show();

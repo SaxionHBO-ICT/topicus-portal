@@ -32,7 +32,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         Post post = TopiCoreModel.getInstance().getPostList().get(position);
 
-        tvUsername.setText(post.getAuthor().getUsername());
+        tvUsername.setText(post.getAuthorUsername());
         tvDate.setText(post.getPostDate());
         tvTitle.setText(post.getTitle());
         tvText.setText(post.getText());

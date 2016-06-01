@@ -3,6 +3,7 @@ package nl.saxion.jelmer.topitalk.controller;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.io.IOUtils;
 
@@ -10,9 +11,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.User;
 
 
@@ -28,6 +32,7 @@ public class ApiHandler {
     private static final String API_URL = "http://10.0.2.2:4567/";
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
+    private static final String API_GET_POSTS_URL = API_URL + "posts/";
 
     /**
      * Connection time-out constants.
@@ -47,6 +52,26 @@ public class ApiHandler {
         }
         return apiHandler;
     }
+
+    /**
+     * Authentication API operations.
+     */
+
+    public boolean isAuthenticated(String authToken) {
+        return false;
+    }
+
+
+    public class AuthenticateTask extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            return null;
+        }
+    }
+
+    /**
+     * User object API operations.
+     */
 
     public boolean addUserToDb(User user) {
 
@@ -72,6 +97,7 @@ public class ApiHandler {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -91,7 +117,7 @@ public class ApiHandler {
                 //Get the data if the response code == 200 (Everything ok).
                 if (conn.getResponseCode() == 200) {
                     InputStream is = conn.getInputStream();
-                    jsonString = IOUtils.toString(is, "UTF-8");
+                    jsonString = IOUtils.toString(is, "UTF-8"); //Parse InputStream to JSON.
 
                     //Close the inputstream and the connection.
                     is.close();
@@ -113,7 +139,7 @@ public class ApiHandler {
 
         @Override
         protected Boolean doInBackground(User... params) {
-            //Get the data
+            //Get the data from the User object.
             String username = params[0].getUsername();
             String password = params[0].getPassword();
             String name = params[0].getName();
@@ -135,7 +161,7 @@ public class ApiHandler {
                 //Close the stream.
                 out.close();
 
-                //Check http response code.
+                //Check http response code, close the connection regardless.
                 if (conn.getResponseCode() == 201) {
                     conn.disconnect();
                     return true;
@@ -150,4 +176,55 @@ public class ApiHandler {
             return false;
         }
     }
+
+    /**
+     * Post object API operations.
+     */
+
+    public ArrayList<Post> getPostList() {
+
+        GetPostListTask getPostListTask = new GetPostListTask();
+        getPostListTask.execute();
+
+        try {
+            return getPostListTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public class GetPostListTask extends AsyncTask<Void, Void, ArrayList<Post>> {
+
+        @Override
+        protected ArrayList<Post> doInBackground(Void... params) {
+
+            try {
+                URL url = new URL(API_GET_POSTS_URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(CONN_TIMEOUT);
+
+                if (conn.getResponseCode() == 200) {
+                    InputStream is = conn.getInputStream();
+                    String jsonString = IOUtils.toString(is, "UTF-8");
+
+                    is.close();
+                    conn.disconnect();
+
+                    Gson gson = new Gson();
+                    ArrayList<Post> posts = gson.fromJson(jsonString, new TypeToken<ArrayList<Post>>(){}.getType());
+                    return posts;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Comment object API operations
+     */
 }
