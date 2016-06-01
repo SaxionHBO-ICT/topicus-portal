@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Post implements Datable {
 
-    private int postId, authorId;
+    private int postId, userId;
     private String authorUsername, postDate, title, text;
     private boolean isHotTopic;
     private int postScore; //Total number of votes for a post. Can be increased by up-voting.
@@ -19,8 +19,8 @@ public class Post implements Datable {
     private int imageId;
     private ArrayList<Comment> comments;
 
-    public Post(int authorId, String authorUsername, String title, String text) {
-        this.authorId = authorId;
+    public Post(int userId, String authorUsername, String title, String text) {
+        this.userId = userId;
         this.authorUsername = authorUsername;
         this.title = title;
         this.text = text;
@@ -30,8 +30,8 @@ public class Post implements Datable {
         comments = new ArrayList<>();
     }
 
-    public Post(int authorId, String authorUsername, String title, String text, int imageId) {
-        this.authorId = authorId;
+    public Post(int userId, String authorUsername, String title, String text, int imageId) {
+        this.userId = userId;
         this.authorUsername = authorUsername;
         this.title = title;
         this.text = text;
@@ -45,6 +45,10 @@ public class Post implements Datable {
     /**
      * Getters
      */
+
+    public int getUserId() {
+        return userId;
+    }
 
     public String getAuthorUsername() {
         return authorUsername;

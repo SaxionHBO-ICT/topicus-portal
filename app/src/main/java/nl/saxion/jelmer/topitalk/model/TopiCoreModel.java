@@ -38,8 +38,8 @@ public class TopiCoreModel {
     }
 
     public ArrayList<Post> getPostList() {
-        //return ApiHandler.getInstance().getPostList(); //Return the list from the database.
-        return postList;
+        return ApiHandler.getInstance().getPostList(); //Return the list from the database.
+        //return postList;
     }
 
     public void setCurrentUser(User user) {
@@ -55,6 +55,7 @@ public class TopiCoreModel {
     }
 
     public void addPost(int authorId, String authorUsername, String title, String text) {
+        //ApiHandler.getInstance().addPostToDb(new Post(authorId, authorUsername, title, text)); //Add a new post to the database.
         postList.add(new Post(authorId, authorUsername, title, text));
     }
 
