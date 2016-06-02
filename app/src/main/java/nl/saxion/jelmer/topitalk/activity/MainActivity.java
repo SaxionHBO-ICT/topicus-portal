@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
+import nl.saxion.jelmer.topitalk.controller.ApiHandler;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostListAdapter;
 
@@ -34,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
 
-        adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostList());
-        postList.setAdapter(adapter);
+        try {
+            adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostListFromDb());
+            postList.setAdapter(adapter);
+        } catch (NullPointerException e) {
+            Toast.makeText(MainActivity.this, "Berichtenlijst kon niet worden opgehaald.", Toast.LENGTH_SHORT).show();
+        }
 
         btNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,13 +59,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
     protected void onResume() {
         initialize();
-        adapter.notifyDataSetChanged();
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
         super.onResume();
     }
 

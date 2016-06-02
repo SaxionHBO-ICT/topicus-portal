@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.Post;
@@ -29,19 +30,30 @@ public class PostDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int position = intent.getIntExtra(MainActivity.POSITION_MESSAGE, 0);
+        Post post = null;
 
-        Post post = TopiCoreModel.getInstance().getPostList().get(position);
+        //This try/catch clause will prevent the app from crashing when a deleted post is selected.
+        try {
+            post = TopiCoreModel.getInstance().getLocalPostList().get(position);
+        } catch (IndexOutOfBoundsException e) {
+            finish();
+            Toast.makeText(PostDetailActivity.this, "Bericht niet gevonden!", Toast.LENGTH_SHORT).show();
+        } finally {
 
-        tvUsername.setText(post.getAuthorUsername());
-        tvDate.setText(post.getPostDate());
-        tvTitle.setText(post.getTitle());
-        tvText.setText(post.getText());
+            if (post != null) {
 
-        if (post.getPostScore() != 0) {
-            tvPostscore.setVisibility(View.VISIBLE);
-            tvPostscore.setText(""+ post.getPostScore());
-        } else {
-            tvPostscore.setVisibility(View.INVISIBLE);
+                tvUsername.setText(post.getAuthorUsername());
+                tvDate.setText(post.getPostDate());
+                tvTitle.setText(post.getTitle());
+                tvText.setText(post.getText());
+
+                if (post.getPostScore() != 0) {
+                    tvPostscore.setVisibility(View.VISIBLE);
+                    tvPostscore.setText("" + post.getPostScore());
+                } else {
+                    tvPostscore.setVisibility(View.INVISIBLE);
+                }
+            }
         }
     }
 }
