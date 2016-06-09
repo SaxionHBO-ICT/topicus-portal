@@ -30,10 +30,11 @@ public class TopiCoreModel {
     }
 
     public ArrayList<Post> getPostListFromDb() {
-        //return ApiHandler.getInstance().getLocalPostList(); //Return the list from the database.
-        //return localPostList;
-        localPostList = ApiHandler.getInstance().getPostList();
-        return localPostList;
+        return ApiHandler.getInstance().getPostList();
+    }
+
+    public void refreshPostList() {
+        localPostList = getPostListFromDb();
     }
 
     public ArrayList<Post> getLocalPostList() {

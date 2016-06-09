@@ -14,7 +14,7 @@ import nl.saxion.jelmer.topitalk.model.User;
  */
 public abstract class LoginHandler {
 
-    private static final String AUTH_KEY = "/zddAw12#LLLo0w9;'][[#1gmA";
+    private static final String PASSWORD_HASH = "/zddAw12#LLLo0w9;'][[#1gmA";
 
     /**
      * Method to validate a login attempt.
@@ -56,13 +56,14 @@ public abstract class LoginHandler {
 
     public static String encryptPassword(String password) {
         BasicTextEncryptor bte = new BasicTextEncryptor();
-        bte.setPassword(AUTH_KEY);
-        return bte.encrypt(password);
+        bte.setPassword(PASSWORD_HASH);
+        return bte.encrypt(password).replaceAll(" ", "");
     }
 
     private static String decryptPassword(String encryptedPassword) {
         BasicTextEncryptor bte = new BasicTextEncryptor();
-        bte.setPassword(AUTH_KEY);
+        encryptedPassword = encryptedPassword.replaceAll(" ", "");
+        bte.setPassword(PASSWORD_HASH);
         return bte.decrypt(encryptedPassword);
     }
 }

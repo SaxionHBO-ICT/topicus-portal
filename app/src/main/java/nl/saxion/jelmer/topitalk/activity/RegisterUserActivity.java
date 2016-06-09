@@ -11,7 +11,6 @@ import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
 import nl.saxion.jelmer.topitalk.controller.LoginHandler;
 import nl.saxion.jelmer.topitalk.controller.TextFormatter;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 public class RegisterUserActivity extends AppCompatActivity {
 
@@ -63,11 +62,11 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private boolean isFormFilledCorrectly() {
-        return doPasswordFielsMatch() && isNameFilled();
+        return doPasswordFieldsMatch() && isNameFilled();
     }
 
 
-    private boolean doPasswordFielsMatch() {
+    private boolean doPasswordFieldsMatch() {
         if (!TextFormatter.getFormattedTextFromField(etPassword).equals(TextFormatter.getFormattedTextFromField(etRepeatPassword))) {
             return false;
         } else if (etPassword.getText().toString().equals("") || etRepeatPassword.getText().toString().equals("")) {

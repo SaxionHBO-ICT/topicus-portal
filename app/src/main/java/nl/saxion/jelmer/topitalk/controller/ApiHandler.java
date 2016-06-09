@@ -11,12 +11,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import nl.saxion.jelmer.topitalk.activity.MainActivity;
+import nl.saxion.jelmer.topitalk.activity.NewPostActivity;
 import nl.saxion.jelmer.topitalk.model.Post;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.model.User;
 
 
@@ -26,6 +30,8 @@ import nl.saxion.jelmer.topitalk.model.User;
  */
 public class ApiHandler {
 
+    private static final String APP_AUTH_TOKEN = "zxcASDrfv0/2031lM<K";
+
     /**
      * Database URL constants
      */
@@ -34,6 +40,7 @@ public class ApiHandler {
     private static final String API_ADD_USER_URL = API_URL + "users";
     private static final String API_GET_POSTS_URL = API_URL + "posts/";
     private static final String API_NEW_POST_URL = API_URL + "posts";
+    private static final String API_UPVOTE_POST_URL = API_GET_POSTS_URL + "upvote/";
 
     /**
      * Connection time-out constants.
@@ -195,6 +202,19 @@ public class ApiHandler {
         return null;
     }
 
+    public boolean upvotePost(int postId) {
+
+        UpvotePostTask upvotePostTask = new UpvotePostTask();
+        upvotePostTask.execute(postId);
+
+        try {
+            return upvotePostTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean addPostToDb(Post post) {
 
         AddPostTask addPostTask = new AddPostTask();
@@ -267,6 +287,44 @@ public class ApiHandler {
 
                 //Check http response code, close the connection regardless.
                 if (conn.getResponseCode() == 201) {
+                    conn.disconnect();
+                    return true;
+                } else {
+                    conn.disconnect();
+                    return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) { // Notify dataset changed en post lijst ophalen.
+                TopiCoreModel.getInstance().refreshPostList();
+            }
+        }
+    }
+
+    public class UpvotePostTask extends AsyncTask<Integer, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+
+            //Get the postId from params.
+            int postId = params[0];
+
+            try {
+                //Open a new connection.
+                URL url = new URL(API_UPVOTE_POST_URL + postId);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("PUT");
+                conn.setConnectTimeout(CONN_TIMEOUT);
+
+                //Return true if the response code == 200, close connection regardless.
+                if (conn.getResponseCode() == 200) {
                     conn.disconnect();
                     return true;
                 } else {

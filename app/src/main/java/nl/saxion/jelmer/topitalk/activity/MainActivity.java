@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private PostListAdapter adapter;
     private ListView postList;
     private FloatingActionButton btNewPost;
-    private ImageView ivUpvote;
     public final static String POSITION_MESSAGE = "position_message";
 
     @Override
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         initialize();
 
         if (adapter != null) {
+
             adapter.notifyDataSetChanged();
         }
         super.onResume();
