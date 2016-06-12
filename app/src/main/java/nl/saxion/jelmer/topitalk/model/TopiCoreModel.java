@@ -12,6 +12,7 @@ public class TopiCoreModel {
     private User currentUser;
     private static TopiCoreModel topiCoreModel = null;
     private ArrayList<Post> localPostList;
+    private ArrayList<Comment> comments = new ArrayList<>();
 
     private TopiCoreModel() {
         localPostList = new ArrayList<>();
@@ -30,7 +31,13 @@ public class TopiCoreModel {
     }
 
     public ArrayList<Post> getPostListFromDb() {
-        return ApiHandler.getInstance().getPostList();
+
+        localPostList = ApiHandler.getInstance().getPostList();
+        return localPostList;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
 
     public void refreshPostList() {

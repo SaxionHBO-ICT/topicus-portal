@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:textSize="23sp"
+        android:textSize="18sp"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
         android:textColor="@color/colorPrimary"
@@ -31,7 +31,7 @@
         android:layout_marginEnd="5dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:hint="Voer een titel in..."
+        android:hint="Een leuke titel.."
         android:textSize="12sp"
         android:background="@drawable/post_item_border"/>
 
@@ -45,7 +45,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="start|top"
-        android:hint="Schrijf een bericht..."
+        android:hint="Je bericht.."
         android:background="@drawable/post_item_border"
         android:textSize="12sp"
         android:paddingStart="10dp"

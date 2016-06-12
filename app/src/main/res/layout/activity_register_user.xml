@@ -24,7 +24,7 @@
         android:layout_below="@+id/iv_icon_register"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/gebruikersnaam"
+        android:text="@string/username"
         android:textColor="@color/colorPrimary" />
 
     <EditText

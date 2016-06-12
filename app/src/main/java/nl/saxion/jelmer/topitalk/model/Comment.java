@@ -12,18 +12,17 @@ import java.util.Date;
 public class Comment implements Datable {
 
     private int commentId, inThreadId, authorId;
-    private String commentDate, title, text;
+    private String commentDate, text, authorUsername;
 
-    private User author;
 
     public Comment() {
         //No arg constructor, needed by ORMLite.
     }
 
-    public Comment(int inThreadId, User author, String title, String text) {
+    public Comment(int inThreadId, int authorId, String authorUsername, String text) {
         this.inThreadId = inThreadId;
-        this.author = author;
-        this.title = title;
+        this.authorId = authorId;
+        this.authorUsername = authorUsername;
         this.text = text;
         commentDate = generateDate();
     }
@@ -40,12 +39,8 @@ public class Comment implements Datable {
         return commentDate;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public String getTitle() {
-        return title;
+    public String getAuthorUsername() {
+        return authorUsername;
     }
 
     public String getText() {

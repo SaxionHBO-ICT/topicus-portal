@@ -53,4 +53,10 @@ public class NewPostActivity extends AppCompatActivity {
     private boolean isPostFormFilled() {
         return !etPostTitle.getText().toString().equals("") && !etPostText.getText().toString().equals("");
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
