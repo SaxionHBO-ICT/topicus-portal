@@ -16,4 +16,5 @@
     <string name="tv_new_post">Nieuw bericht</string>
     <string name="et_write_comment">Schrijf een reactie...</string>
     <string name="save_credentials">Bewaar gegevens</string>
+    <string name="new_comment">Nieuwe reactie</string>
 </resources>

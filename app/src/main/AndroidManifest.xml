@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nl.saxion.jelmer.topitalk">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +20,8 @@
         </activity>
         <activity android:name=".activity.RegisterUserActivity" />
         <activity android:name=".activity.NewPostActivity" />
-        <activity android:name=".activity.PostDetailActivity"/>
+        <activity android:name=".activity.PostDetailActivity" />
+        <activity android:name=".activity.NewCommentActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

@@ -30,14 +30,14 @@ public class Post implements Datable {
         comments = new ArrayList<>();
     }
 
-    public Post(int userId, String authorUsername, String title, String text, int imageId) {
+    public Post(int postId, int userId, String authorUsername, String title, String text) {
+        this.postId = postId;
         this.userId = userId;
         this.authorUsername = authorUsername;
         this.title = title;
         this.text = text;
         isHotTopic = false;
         postScore = 0;
-        this.imageId = imageId;
         postDate = generateDate();
         comments = new ArrayList<>();
     }

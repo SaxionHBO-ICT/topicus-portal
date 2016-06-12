@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeoutException;
 
 import nl.saxion.jelmer.topitalk.activity.MainActivity;
 import nl.saxion.jelmer.topitalk.activity.NewPostActivity;
+import nl.saxion.jelmer.topitalk.model.Comment;
 import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.model.User;
@@ -41,6 +43,8 @@ public class ApiHandler {
     private static final String API_GET_POSTS_URL = API_URL + "posts/";
     private static final String API_NEW_POST_URL = API_URL + "posts";
     private static final String API_UPVOTE_POST_URL = API_GET_POSTS_URL + "upvote/";
+    private static final String API_NEW_COMMENT_URL = API_URL + "comments";
+    private static final String API_GET_COMMENTS_URL = API_URL + "comments/";
 
     /**
      * Connection time-out constants.
@@ -247,8 +251,7 @@ public class ApiHandler {
                     conn.disconnect();
 
                     Gson gson = new Gson();
-                    ArrayList<Post> posts = gson.fromJson(jsonString, new TypeToken<ArrayList<Post>>(){}.getType());
-                    return posts;
+                    return gson.fromJson(jsonString, new TypeToken<ArrayList<Post>>(){}.getType());
                 }
 
             } catch (IOException e) {
@@ -342,4 +345,102 @@ public class ApiHandler {
     /**
      * Comment object API operations
      */
+
+    public boolean addCommentToDb(Comment comment) {
+
+        AddCommentTask addCommentTask = new AddCommentTask();
+        addCommentTask.execute(comment);
+
+        try {
+            return addCommentTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<Comment> getCommentsByThreadId(int threadId) {
+
+        GetCommentByThreadTask getCommentByThreadTask = new GetCommentByThreadTask();
+        getCommentByThreadTask.execute(threadId);
+
+        try {
+            return getCommentByThreadTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public class AddCommentTask extends AsyncTask<Comment, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Comment... params) {
+
+            //Get the data from the Comment object
+            int inThreadId = params[0].getInThreadId();
+            int authorId = params[0].getAuthorId();
+            String authorUsername = params[0].getAuthorUsername();
+            String text = params[0].getText();
+
+            try {
+                //Open a new connection;
+                URL url = new URL(API_NEW_COMMENT_URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setConnectTimeout(CONN_TIMEOUT);
+
+                //Write the data to the output stream and flush it.
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("inThreadId=" + inThreadId + "&authorId=" + authorId + "&authorUsername=" + authorUsername + "&text=" + text);
+                out.flush();
+
+                //Close the stream.
+                out.close();
+
+                if (conn.getResponseCode() == 201) {
+                    conn.disconnect();
+                    return true;
+                } else {
+                    conn.disconnect();
+                    return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    public class GetCommentByThreadTask extends AsyncTask<Integer, Void, ArrayList<Comment>> {
+
+
+        @Override
+        protected ArrayList<Comment> doInBackground(Integer... params) {
+
+            try {
+                URL url = new URL(API_GET_COMMENTS_URL + params[0]);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(CONN_TIMEOUT);
+
+                if (conn.getResponseCode() == 200) {
+                    InputStream is = conn.getInputStream();
+                    String jsonString = IOUtils.toString(is, "UTF-8");
+
+                    is.close();;
+                    conn.disconnect();
+
+                    Gson gson = new Gson();
+                    return gson.fromJson(jsonString, new TypeToken<ArrayList<Comment>>(){}.getType());
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }

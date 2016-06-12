@@ -36,6 +36,10 @@ public class TopiCoreModel {
         return localPostList;
     }
 
+    public ArrayList<Comment> getCommentsForThread(int threadId) {
+        return ApiHandler.getInstance().getCommentsByThreadId(threadId);
+    }
+
     public ArrayList<Comment> getComments() {
         return comments;
     }
@@ -63,6 +67,10 @@ public class TopiCoreModel {
     public void addPost(int authorId, String authorUsername, String title, String text) {
         ApiHandler.getInstance().addPostToDb(new Post(authorId, authorUsername, title, text)); //Add a new post to the database.
         //localPostList.add(new Post(authorId, authorUsername, title, text));
+    }
+
+    public void addComment(int inThreadId, int authorId, String authorUsername, String text) {
+        ApiHandler.getInstance().addCommentToDb(new Comment(inThreadId, authorId, authorUsername, text));
     }
 
     public void logoutCurrentUser() {

@@ -18,7 +18,7 @@ import nl.saxion.jelmer.topitalk.view.PostDetailListAdapter;
 public class PostDetailActivity extends AppCompatActivity {
 
     private ImageView ivUpvote, ivDownvote;
-    private TextView tvPostscore, tvUsername, tvDate, tvTitle, tvText;
+    private TextView tvPostscore, tvUsername, tvDate, tvTitle, tvText, tvAddComment;
     private ListView lvPostDetail;
     private PostDetailListAdapter adapter;
 
@@ -28,7 +28,7 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
 
         lvPostDetail = (ListView) findViewById(R.id.lv_post_detail);
-        adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getComments());
+        tvAddComment = (TextView) findViewById(R.id.tv_add_comment);
 
         Intent intent = getIntent();
         int position = intent.getIntExtra(MainActivity.POSITION_MESSAGE, 0);
@@ -43,6 +43,18 @@ public class PostDetailActivity extends AppCompatActivity {
         } finally {
 
             if (post != null) {
+
+                adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getCommentsForThread(post.getPostId()));
+
+                final Post finalPost = post;
+                tvAddComment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(PostDetailActivity.this, NewCommentActivity.class);
+                        intent.putExtra(NewCommentActivity.POST_ID, finalPost.getPostId());
+                        startActivity(intent);
+                    }
+                });
 
                 View headerView = LayoutInflater.from(this).inflate(R.layout.post_detail_header, lvPostDetail, false);
 

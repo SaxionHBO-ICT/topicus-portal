@@ -27,6 +27,20 @@ public class Comment implements Datable {
         commentDate = generateDate();
     }
 
+    public Comment(int commentId, int inThreadId, int authorId, String authorUsername, String text) {
+        this.commentId = commentId;
+
+        this.inThreadId = inThreadId;
+        this.authorId = authorId;
+        this.authorUsername = authorUsername;
+        this.text = text;
+        commentDate = generateDate();
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
     public int getCommentId() {
         return commentId;
     }
