@@ -11,15 +11,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import nl.saxion.jelmer.topitalk.activity.MainActivity;
-import nl.saxion.jelmer.topitalk.activity.NewPostActivity;
+import nl.saxion.jelmer.topitalk.activity.PostDetailActivity;
 import nl.saxion.jelmer.topitalk.model.Comment;
 import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
@@ -38,6 +35,7 @@ public class ApiHandler {
      * Database URL constants
      */
     private static final String API_URL = "http://10.0.2.2:4567/";
+//    private static final String API_URL = "http://192.168.178.11:4567/";
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
     private static final String API_GET_POSTS_URL = API_URL + "posts/";
@@ -251,13 +249,19 @@ public class ApiHandler {
                     conn.disconnect();
 
                     Gson gson = new Gson();
-                    return gson.fromJson(jsonString, new TypeToken<ArrayList<Post>>(){}.getType());
+                    return gson.fromJson(jsonString, new TypeToken<ArrayList<Post>>() {
+                    }.getType());
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Post> posts) {
+            MainActivity.finishRefreshing();
         }
     }
 
@@ -430,7 +434,7 @@ public class ApiHandler {
                     InputStream is = conn.getInputStream();
                     String jsonString = IOUtils.toString(is, "UTF-8");
 
-                    is.close();;
+                    is.close();
                     conn.disconnect();
 
                     Gson gson = new Gson();
@@ -441,6 +445,11 @@ public class ApiHandler {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Comment> comments) {
+            PostDetailActivity.finishRefreshing();
         }
     }
 }

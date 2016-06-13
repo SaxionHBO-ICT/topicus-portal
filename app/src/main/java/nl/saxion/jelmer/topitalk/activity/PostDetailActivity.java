@@ -14,13 +14,17 @@ import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostDetailListAdapter;
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 public class PostDetailActivity extends AppCompatActivity {
 
-    private ImageView ivUpvote, ivDownvote;
+    public final static String POSITION_MESSAGE = "position_message";
+
+    private ImageView ivUpvote;
     private TextView tvPostscore, tvUsername, tvDate, tvTitle, tvText, tvAddComment;
     private ListView lvPostDetail;
     private PostDetailListAdapter adapter;
+    private static JellyRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +33,10 @@ public class PostDetailActivity extends AppCompatActivity {
 
         lvPostDetail = (ListView) findViewById(R.id.lv_post_detail);
         tvAddComment = (TextView) findViewById(R.id.tv_add_comment);
+        refreshLayout = (JellyRefreshLayout) findViewById(R.id.jr_refresh_container_detail);
 
         Intent intent = getIntent();
-        int position = intent.getIntExtra(MainActivity.POSITION_MESSAGE, 0);
+        int position = intent.getIntExtra(POSITION_MESSAGE, 0);
         Post post = null;
 
         //This try/catch clause will prevent the app from crashing when a deleted post is selected.
@@ -53,6 +58,13 @@ public class PostDetailActivity extends AppCompatActivity {
                         Intent intent = new Intent(PostDetailActivity.this, NewCommentActivity.class);
                         intent.putExtra(NewCommentActivity.POST_ID, finalPost.getPostId());
                         startActivity(intent);
+                    }
+                });
+
+                refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
+                    @Override
+                    public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
+                        adapter.updateCommentList(finalPost.getPostId());
                     }
                 });
 
@@ -80,5 +92,9 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public static void finishRefreshing() {
+        refreshLayout.finishRefreshing();
     }
 }

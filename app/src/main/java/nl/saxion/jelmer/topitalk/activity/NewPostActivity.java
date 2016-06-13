@@ -58,5 +58,6 @@ public class NewPostActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

@@ -18,7 +18,7 @@ import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 /**
  * Created by Nyds on 21/05/2016.
  */
-public class PostListAdapter extends ArrayAdapter {
+public class PostListAdapter extends ArrayAdapter<Post> {
 
     private ImageView ivUpvote, ivHotIcon;
     private TextView tvPostscore, tvTitle, tvUsername, tvDate, tvText;
@@ -77,5 +77,11 @@ public class PostListAdapter extends ArrayAdapter {
         });
 
         return convertView;
+    }
+
+    public void updatePostList() {
+        super.clear();
+        super.addAll(TopiCoreModel.getInstance().getPostListFromDb());
+        super.notifyDataSetChanged();
     }
 }

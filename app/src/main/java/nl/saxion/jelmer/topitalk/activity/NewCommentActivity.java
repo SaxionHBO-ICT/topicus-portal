@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
-import nl.saxion.jelmer.topitalk.controller.TextFormatter;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 public class NewCommentActivity extends AppCompatActivity {

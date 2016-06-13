@@ -11,6 +11,7 @@ import java.util.List;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.Comment;
+import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 /**
  * Created by Nyds on 23/05/2016.
@@ -41,5 +42,11 @@ public class PostDetailListAdapter extends ArrayAdapter<Comment> {
         tvText.setText(comment.getText());
 
         return convertView;
+    }
+
+    public void updateCommentList(int postId) {
+        super.clear();
+        super.addAll(TopiCoreModel.getInstance().getCommentsForThread(postId));
+        super.notifyDataSetChanged();
     }
 }

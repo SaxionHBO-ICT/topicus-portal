@@ -9,21 +9,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.ApiHandler;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostListAdapter;
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private PostListAdapter adapter;
     private ListView postList;
     private FloatingActionButton btNewPost;
-    public final static String POSITION_MESSAGE = "position_message";
+    private static JellyRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +31,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         postList = (ListView) findViewById(R.id.lv_post_list);
         btNewPost = (FloatingActionButton) findViewById(R.id.bt_fab_main);
+        refreshLayout = (JellyRefreshLayout) findViewById(R.id.jr_refresh_container_main);
 
         initialize();
 
         try {
             adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostListFromDb());
             postList.setAdapter(adapter);
+
+            refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
+                @Override
+                public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
+                    adapter.updatePostList();
+                }
+            });
+
         } catch (NullPointerException e) {
             Toast.makeText(MainActivity.this, "Berichtenlijst kon niet worden opgehaald.", Toast.LENGTH_SHORT).show();
         }
@@ -55,21 +63,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, PostDetailActivity.class);
-                intent.putExtra(POSITION_MESSAGE, position);
+                intent.putExtra(PostDetailActivity.POSITION_MESSAGE, position);
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        initialize();
-
-        if (adapter != null) {
-
-            adapter.notifyDataSetChanged();
-        }
-        super.onResume();
     }
 
     private boolean isUserLoggedIn() {
@@ -105,5 +102,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static void finishRefreshing() {
+        refreshLayout.finishRefreshing();
+    }
 
 }

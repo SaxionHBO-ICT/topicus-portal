@@ -12,7 +12,6 @@ public class TopiCoreModel {
     private User currentUser;
     private static TopiCoreModel topiCoreModel = null;
     private ArrayList<Post> localPostList;
-    private ArrayList<Comment> comments = new ArrayList<>();
 
     private TopiCoreModel() {
         localPostList = new ArrayList<>();
@@ -38,10 +37,6 @@ public class TopiCoreModel {
 
     public ArrayList<Comment> getCommentsForThread(int threadId) {
         return ApiHandler.getInstance().getCommentsByThreadId(threadId);
-    }
-
-    public ArrayList<Comment> getComments() {
-        return comments;
     }
 
     public void refreshPostList() {
