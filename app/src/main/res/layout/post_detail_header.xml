@@ -16,6 +16,13 @@
         android:layout_height="wrap_content"
         android:src="@drawable/upvote_circled" />
 
+    <ImageView
+        android:id="@+id/iv_hot_icon_post"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/hot_icon"/>
+
     <TextView
         android:id="@+id/tv_upvotes_post"
         android:layout_width="wrap_content"

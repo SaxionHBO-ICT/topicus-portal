@@ -21,7 +21,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     public final static String POSITION_MESSAGE = "position_message";
 
-    private ImageView ivUpvote;
+    private ImageView ivUpvote, ivHotIcon;
     private TextView tvPostscore, tvUsername, tvDate, tvTitle, tvText, tvAddComment;
     private ListView lvPostDetail;
     private PostDetailListAdapter adapter;
@@ -80,6 +80,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 tvTitle = (TextView) headerView.findViewById(R.id.tv_posttitle_post);
                 tvText = (TextView) headerView.findViewById(R.id.tv_posttext_post);
                 tvPostscore = (TextView) headerView.findViewById(R.id.tv_postscore_post);
+                ivHotIcon = (ImageView) headerView.findViewById(R.id.iv_hot_icon_post);
 
                 tvUsername.setText(post.getAuthorUsername());
                 tvDate.setText(post.getPostDate());
@@ -94,6 +95,12 @@ public class PostDetailActivity extends AppCompatActivity {
                     tvPostscore.setText("" + post.getPostScore());
                 } else {
                     tvPostscore.setVisibility(View.INVISIBLE);
+                }
+
+                if (post.isHotTopic()) {
+                    ivHotIcon.setVisibility(View.VISIBLE);
+                } else {
+                    ivHotIcon.setVisibility(View.INVISIBLE);
                 }
             }
         }

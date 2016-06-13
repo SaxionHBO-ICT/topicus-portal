@@ -79,12 +79,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private boolean isNameFilled() {
-        if (etName.getText().toString().equals("") || etSurname.getText().toString().equals("")) {
-            return false;
-        } else if (etName.getText().toString().equals("") && etSurname.getText().toString().equals("")) {
-            return false;
-        }
-        return true;
+        return !(etName.getText().toString().equals("") || etSurname.getText().toString().equals(""));
     }
 
     @Override

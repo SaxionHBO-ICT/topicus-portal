@@ -13,10 +13,7 @@ public class User {
     private int userId;
     private String username, password, name, surname, teamname;
 
-    private int userPictureId;
-    private ArrayList<Post> userPosts;
     private ArrayList<Integer> upvotedPostIds;
-    private ArrayList<Comment> userComments;
 
     public User(String username, String password, String name, String surname) {
         this.username = username;
@@ -58,18 +55,6 @@ public class User {
         return teamname;
     }
 
-    public int getUserPictureId() {
-        return userPictureId;
-    }
-
-    public ArrayList<Post> getUserPosts() {
-        return userPosts;
-    }
-
-    public ArrayList<Comment> getUserComments() {
-        return userComments;
-    }
-
     public boolean hasUserUpvotedPost(int postId) {
         if (upvotedPostIds == null) {
             return false;
@@ -88,28 +73,10 @@ public class User {
         this.teamname = teamname;
     }
 
-    public void setUserPictureId(int userPictureId) {
-        this.userPictureId = userPictureId;
-    }
-
     public void addUserUpvotedPostId(int postId) {
         if (upvotedPostIds == null) {
             upvotedPostIds = new ArrayList<>();
         }
         upvotedPostIds.add(postId);
-    }
-
-    public void addUserPost(Post post) {
-        if (userPosts == null) {
-            userPosts = new ArrayList<>();
-        }
-        userPosts.add(post);
-    }
-
-    public void addUserComment(Comment comment) {
-        if (userComments == null) {
-            userComments = new ArrayList<>();
-        }
-        userComments.add(comment);
     }
 }

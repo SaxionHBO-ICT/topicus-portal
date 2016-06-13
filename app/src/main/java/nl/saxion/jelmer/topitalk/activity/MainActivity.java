@@ -9,9 +9,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import garin.artemiy.quickaction.library.QuickAction;
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostListAdapter;
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView postList;
     private FloatingActionButton btNewPost;
     private static JellyRefreshLayout refreshLayout;
+    private QuickAction quickAction;
+    private RelativeLayout popUpMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         postList = (ListView) findViewById(R.id.lv_post_list);
         btNewPost = (FloatingActionButton) findViewById(R.id.bt_fab_main);
         refreshLayout = (JellyRefreshLayout) findViewById(R.id.jr_refresh_container_main);
+        popUpMenu = (RelativeLayout) getLayoutInflater().inflate(R.layout.popup_menu, null);
+        quickAction = new QuickAction(this, R.style.PopupAnimation, popUpMenu, popUpMenu);
 
         initialize();
 
@@ -65,6 +72,24 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, PostDetailActivity.class);
                 intent.putExtra(PostDetailActivity.POSITION_MESSAGE, position);
                 startActivity(intent);
+            }
+        });
+
+        postList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                if (TopiCoreModel.getInstance().getLocalPostList().get(position).getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+
+                    ImageView ivEdit = (ImageView) popUpMenu.findViewById(R.id.iv_edit_popup);
+                    ImageView ivDelete = (ImageView) popUpMenu.findViewById(R.id.iv_delete_popup);
+
+                    quickAction.show(view);
+                    return true;
+                } else {
+                    Toast.makeText(MainActivity.this, "Je kunt alleen je eigen berichten aanpassen.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             }
         });
     }
