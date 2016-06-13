@@ -3,6 +3,7 @@ package nl.saxion.jelmer.topitalk.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +21,9 @@ public class RegisterUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_register_user);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         etUsername = (EditText) findViewById(R.id.et_user_register);
         etPassword = (EditText) findViewById(R.id.et_password_register);
@@ -81,6 +84,12 @@ public class RegisterUserActivity extends AppCompatActivity {
         } else if (etName.getText().toString().equals("") && etSurname.getText().toString().equals("")) {
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
         return true;
     }
 }

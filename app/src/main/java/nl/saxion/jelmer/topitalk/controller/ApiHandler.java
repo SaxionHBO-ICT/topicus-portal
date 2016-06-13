@@ -34,8 +34,8 @@ public class ApiHandler {
     /**
      * Database URL constants
      */
-    private static final String API_URL = "http://10.0.2.2:4567/";
-//    private static final String API_URL = "http://192.168.178.11:4567/";
+//    private static final String API_URL = "http://10.0.2.2:4567/";
+    private static final String API_URL = "http://192.168.178.11:4567/";
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
     private static final String API_GET_POSTS_URL = API_URL + "posts/";

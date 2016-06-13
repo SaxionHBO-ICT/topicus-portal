@@ -24,7 +24,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/ic_mode_edit_24dp_yellow" />
+        android:paddingEnd="5dp"
+        android:src="@drawable/android_express_pencil" />
 
     <uk.co.imallan.jellyrefresh.JellyRefreshLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"

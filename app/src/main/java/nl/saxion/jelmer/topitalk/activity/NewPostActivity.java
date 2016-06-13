@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,7 +21,9 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_new_post);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         etPostTitle = (EditText) findViewById(R.id.et_post_title);
         etPostText = (EditText) findViewById(R.id.et_post_text);
@@ -59,5 +62,13 @@ public class NewPostActivity extends AppCompatActivity {
         Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        return true;
     }
 }

@@ -39,4 +39,5 @@ dependencies {
     compile 'com.github.allan1st:JellyRefreshLayout:1.0.0'
     compile project(':jasypt-1.9.2')
     compile project(':gson-2.6.2')
+    compile project(':quickaction-1.2')
 }

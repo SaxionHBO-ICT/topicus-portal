@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +30,10 @@ public class PostDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_post_detail);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lvPostDetail = (ListView) findViewById(R.id.lv_post_detail);
         tvAddComment = (TextView) findViewById(R.id.tv_add_comment);
@@ -57,6 +61,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(PostDetailActivity.this, NewCommentActivity.class);
                         intent.putExtra(NewCommentActivity.POST_ID, finalPost.getPostId());
+                        intent.putExtra(NewCommentActivity.POST_TITLE, finalPost.getTitle());
                         startActivity(intent);
                     }
                 });
@@ -96,5 +101,11 @@ public class PostDetailActivity extends AppCompatActivity {
 
     public static void finishRefreshing() {
         refreshLayout.finishRefreshing();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
