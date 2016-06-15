@@ -50,7 +50,7 @@ public class PostDetailActivity extends AppCompatActivity {
             finish();
             Toast.makeText(PostDetailActivity.this, "Bericht niet gevonden!", Toast.LENGTH_SHORT).show();
         } finally {
-
+            //If there is a post object create the adapter and fill the fields.
             if (post != null) {
 
                 adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getCommentsForThread(post.getPostId()));
@@ -82,7 +82,15 @@ public class PostDetailActivity extends AppCompatActivity {
                 tvPostscore = (TextView) headerView.findViewById(R.id.tv_postscore_post);
                 ivHotIcon = (ImageView) headerView.findViewById(R.id.iv_hot_icon_post);
 
-                tvUsername.setText(post.getAuthorUsername());
+                //This sets the textcolor of the username field to blue and adds an asterix (*) if the post is owned by the current user.
+                if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+                    tvUsername.setText(post.getAuthorUsername() + "*");
+                    tvUsername.setTextColor(headerView.getResources().getColor(R.color.topicusBlue));
+                } else {
+                    tvUsername.setText(post.getAuthorUsername());
+                    tvUsername.setTextColor(tvDate.getTextColors().getDefaultColor());
+                }
+
                 tvDate.setText(post.getPostDate());
                 tvTitle.setText(post.getTitle());
                 tvText.setText(post.getText());

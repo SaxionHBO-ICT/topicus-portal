@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -35,12 +36,14 @@ public class ApiHandler {
      * Database URL constants
      */
 //    private static final String API_URL = "http://10.0.2.2:4567/";
-    private static final String API_URL = "http://192.168.178.11:4567/";
+//    private static final String API_URL = "http://192.168.178.11:4567/";
+    private static final String API_URL = "http://192.168.1.1:4567/";
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
     private static final String API_GET_POSTS_URL = API_URL + "posts/";
     private static final String API_NEW_POST_URL = API_URL + "posts";
-    private static final String API_UPVOTE_POST_URL = API_GET_POSTS_URL + "upvote/";
+    private static final String API_UPVOTE_POST_URL = API_GET_POSTS_URL + "upvote";
+    private static final String API_UPVOTE_CHECK_URL = API_URL + "posts/upvote/check";
     private static final String API_NEW_COMMENT_URL = API_URL + "comments";
     private static final String API_GET_COMMENTS_URL = API_URL + "comments/";
 
@@ -204,13 +207,26 @@ public class ApiHandler {
         return null;
     }
 
-    public boolean upvotePost(int postId) {
+    public boolean upvotePost(int postId, int userId) {
 
         UpvotePostTask upvotePostTask = new UpvotePostTask();
-        upvotePostTask.execute(postId);
+        upvotePostTask.execute(postId, userId);
 
         try {
             return upvotePostTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean hasUserUpvotedPost(int postId, int userId) {
+
+        CheckUpvoteTask checkUpvoteTask = new CheckUpvoteTask();
+        checkUpvoteTask.execute(postId, userId);
+
+        try {
+            return checkUpvoteTask.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -322,13 +338,20 @@ public class ApiHandler {
 
             //Get the postId from params.
             int postId = params[0];
+            int userId = params[1];
 
             try {
                 //Open a new connection.
-                URL url = new URL(API_UPVOTE_POST_URL + postId);
+                URL url = new URL(API_UPVOTE_POST_URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("PUT");
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
                 conn.setConnectTimeout(CONN_TIMEOUT);
+
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("postId=" + postId + "&userId=" + userId);
+                out.flush();
+                out.close();
 
                 //Return true if the response code == 200, close connection regardless.
                 if (conn.getResponseCode() == 200) {
@@ -338,6 +361,42 @@ public class ApiHandler {
                     conn.disconnect();
                     return false;
                 }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    public class CheckUpvoteTask extends AsyncTask<Integer, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+
+            int postId = params[0];
+            int userId = params[1];
+
+            try {
+                URL url = new URL(API_UPVOTE_CHECK_URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setConnectTimeout(CONN_TIMEOUT);
+
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("postId=" + postId + "&userId=" + userId);
+                out.flush();
+                out.close();
+
+                if (conn.getResponseCode() == 200) {
+                    conn.disconnect();
+                    return false;
+                } else {
+                    conn.disconnect();
+                    return true;
+                }
+
 
             } catch (IOException e) {
                 e.printStackTrace();

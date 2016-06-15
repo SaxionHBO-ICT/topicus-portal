@@ -83,6 +83,9 @@ public class Post implements Datable {
     }
 
     public boolean isHotTopic() {
+        if (postScore >= 20) {
+            isHotTopic = true;
+        }
         return isHotTopic;
     }
 

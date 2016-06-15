@@ -1,1 +1,1 @@
-include ':app', ':jasypt-1.9.2', ':gson-2.6.2'
+include ':app', ':jasypt-1.9.2', ':gson-2.6.2', ':quickaction-1.2'

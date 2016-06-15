@@ -51,11 +51,10 @@ public class TopiCoreModel {
         this.currentUser = user;
     }
 
-    public void upvotePost(int postId) {
+    public void upvotePost(int postId, int userId) {
 
-        if (!currentUser.hasUserUpvotedPost(postId)) {
-            currentUser.addUserUpvotedPostId(postId);
-            localPostList.get(postId).upvotePost();
+        if (!ApiHandler.getInstance().hasUserUpvotedPost(postId, userId)) {
+            ApiHandler.getInstance().upvotePost(postId, userId);
         }
     }
 
@@ -71,5 +70,4 @@ public class TopiCoreModel {
     public void logoutCurrentUser() {
         currentUser = null;
     }
-
 }
