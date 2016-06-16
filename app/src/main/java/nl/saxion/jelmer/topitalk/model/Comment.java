@@ -2,37 +2,43 @@ package nl.saxion.jelmer.topitalk.model;
 
 import android.support.annotation.NonNull;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by Nyds on 21/05/2016.
  */
-@DatabaseTable(tableName = "comments")
+
 public class Comment implements Datable {
 
-    @DatabaseField (generatedId = true)
-    private int commentId;
-    @DatabaseField
-    private int inThreadId, authorId;
-    @DatabaseField
-    private String commentDate, title, text;
+    private int commentId, inThreadId, authorId;
+    private String commentDate, text, authorUsername;
 
-    private User author;
 
     public Comment() {
         //No arg constructor, needed by ORMLite.
     }
 
-    public Comment(int inThreadId, User author, String title, String text) {
+    public Comment(int inThreadId, int authorId, String authorUsername, String text) {
         this.inThreadId = inThreadId;
-        this.author = author;
-        this.title = title;
+        this.authorId = authorId;
+        this.authorUsername = authorUsername;
         this.text = text;
         commentDate = generateDate();
+    }
+
+    public Comment(int commentId, int inThreadId, int authorId, String authorUsername, String text) {
+        this.commentId = commentId;
+
+        this.inThreadId = inThreadId;
+        this.authorId = authorId;
+        this.authorUsername = authorUsername;
+        this.text = text;
+        commentDate = generateDate();
+    }
+
+    public int getAuthorId() {
+        return authorId;
     }
 
     public int getCommentId() {
@@ -47,12 +53,8 @@ public class Comment implements Datable {
         return commentDate;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public String getTitle() {
-        return title;
+    public String getAuthorUsername() {
+        return authorUsername;
     }
 
     public String getText() {

@@ -11,9 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/mysql-connector-java-3.0.17-ga-bin" />
-            <option value="$PROJECT_DIR$/ormlite-core-4.49" />
-            <option value="$PROJECT_DIR$/ormlite-jdbc-4.49" />
+            <option value="$PROJECT_DIR$/gson-2.6.2" />
+            <option value="$PROJECT_DIR$/jasypt-1.9.2" />
+            <option value="$PROJECT_DIR$/quickaction-1.2" />
           </set>
         </option>
       </GradleProjectSettings>

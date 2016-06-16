@@ -1,1 +1,1 @@
-include ':app', ':ormlite-core-4.49', ':ormlite-jdbc-4.49', ':mysql-connector-java-3.0.17-ga-bin'
+include ':app', ':jasypt-1.9.2', ':gson-2.6.2', ':quickaction-1.2'

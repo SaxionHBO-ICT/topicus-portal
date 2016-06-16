@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="175dp"
-        android:text="@string/gebruikersnaam"
+        android:text="@string/username"
         android:textColor="@color/colorPrimary" />
 
     <EditText
@@ -57,32 +57,36 @@
         android:singleLine="true"
         android:textCursorDrawable="@null" />
 
-    <TextView
-        android:id="@+id/tv_save_credentials"
+    <RelativeLayout
+        android:id="@+id/rl_remember_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_password"
-        android:layout_marginEnd="81dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/save_credentials"
-        android:textSize="12sp" />
+        android:layout_centerHorizontal="true">
 
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/cb_remember_details"
-        style="@style/AlertDialog.AppCompat.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_password"
-        android:layout_toEndOf="@+id/tv_save_credentials"
+        <TextView
+            android:id="@+id/tv_save_credentials"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="81dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/save_credentials"
+            android:textSize="12sp" />
 
-        app:buttonTint="@color/topicusBlue" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_remember_details"
+            style="@style/AlertDialog.AppCompat.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_save_credentials"
+            app:buttonTint="@color/topicusBlue" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_new_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cb_remember_details"
+        android:layout_below="@+id/rl_remember_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:clickable="true"

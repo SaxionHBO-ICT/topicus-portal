@@ -8,16 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nl.saxion.jelmer.topitalk.R;
+import nl.saxion.jelmer.topitalk.controller.ApiHandler;
 import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 /**
  * Created by Nyds on 21/05/2016.
  */
-public class PostListAdapter extends ArrayAdapter {
+public class PostListAdapter extends ArrayAdapter<Post> {
 
     private ImageView ivUpvote, ivHotIcon;
     private TextView tvPostscore, tvTitle, tvUsername, tvDate, tvText;
@@ -41,12 +43,20 @@ public class PostListAdapter extends ArrayAdapter {
         tvText = (TextView) convertView.findViewById(R.id.tv_posttext_listitem);
         ivUpvote = (ImageView) convertView.findViewById(R.id.iv_upvote_listitem);
 
-        Post post = (Post) getItem(position);
+        final Post post = getItem(position);
 
         tvTitle.setText(post.getTitle());
-        tvUsername.setText(post.getAuthor().getUsername());
         tvDate.setText(post.getPostDate());
         tvText.setText(post.getText());
+
+        //This sets the textcolor of the username field to blue and adds an asterix (*) if the post is owned by the current user.
+        if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+            tvUsername.setText(post.getAuthorUsername() + "*");
+            tvUsername.setTextColor(convertView.getResources().getColor(R.color.topicusBlue));
+        } else {
+            tvUsername.setText(post.getAuthorUsername());
+            tvUsername.setTextColor(tvDate.getTextColors().getDefaultColor());
+        }
 
         if (post.getPostScore() != 0) {
             tvPostscore.setVisibility(View.VISIBLE);
@@ -55,7 +65,7 @@ public class PostListAdapter extends ArrayAdapter {
             tvPostscore.setVisibility(View.INVISIBLE);
         }
 
-        if (TopiCoreModel.getInstance().getCurrentUser().hasUserUpvotedPost(position)) {
+        if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId())) {
             ivUpvote.setAlpha(0.5f);
         } else {
             ivUpvote.setAlpha(1f);
@@ -70,7 +80,10 @@ public class PostListAdapter extends ArrayAdapter {
         ivUpvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TopiCoreModel.getInstance().upvotePost(position);
+                ivUpvote.setAlpha(0.5f);
+                int postScoreToSet = post.getPostScore() + 1;
+                tvPostscore.setText(Integer.toString(postScoreToSet));
+                TopiCoreModel.getInstance().upvotePost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId());
                 notifyDataSetChanged();
             }
         });
@@ -78,5 +91,10 @@ public class PostListAdapter extends ArrayAdapter {
         return convertView;
     }
 
+    public void updatePostList() {
+        super.clear();
+        super.addAll(TopiCoreModel.getInstance().getPostListFromDb());
+        super.notifyDataSetChanged();
+    }
 
 }

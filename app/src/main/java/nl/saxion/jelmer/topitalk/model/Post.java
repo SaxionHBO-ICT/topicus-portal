@@ -2,9 +2,6 @@ package nl.saxion.jelmer.topitalk.model;
 
 import android.support.annotation.NonNull;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,30 +9,19 @@ import java.util.Date;
 /**
  * Created by Nyds on 21/05/2016.
  */
-@DatabaseTable
 public class Post implements Datable {
 
-    @DatabaseField (generatedId = true)
-    private int postId;
-    @DatabaseField
-    private int authorId;
-    @DatabaseField
-    private String postDate, title, text;
-    @DatabaseField
+    private int postId, userId;
+    private String authorUsername, postDate, title, text;
     private boolean isHotTopic;
-    @DatabaseField
     private int postScore; //Total number of votes for a post. Can be increased by up-voting.
 
     private int imageId;
-    private User author;
     private ArrayList<Comment> comments;
 
-    public Post() {
-        //No arg constructor, needed by ORMLite.
-    }
-
-    public Post(User author, String title, String text) {
-        this.author = author;
+    public Post(int userId, String authorUsername, String title, String text) {
+        this.userId = userId;
+        this.authorUsername = authorUsername;
         this.title = title;
         this.text = text;
         isHotTopic = false;
@@ -44,13 +30,14 @@ public class Post implements Datable {
         comments = new ArrayList<>();
     }
 
-    public Post(User author, String title, String text, int imageId) {
-        this.author = author;
+    public Post(int postId, int userId, String authorUsername, String title, String text) {
+        this.postId = postId;
+        this.userId = userId;
+        this.authorUsername = authorUsername;
         this.title = title;
         this.text = text;
         isHotTopic = false;
         postScore = 0;
-        this.imageId = imageId;
         postDate = generateDate();
         comments = new ArrayList<>();
     }
@@ -58,6 +45,14 @@ public class Post implements Datable {
     /**
      * Getters
      */
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getAuthorUsername() {
+        return authorUsername;
+    }
 
     public int getPostId() {
         return postId;
@@ -69,10 +64,6 @@ public class Post implements Datable {
 
     public String getPostDate() {
         return postDate;
-    }
-
-    public User getAuthor() {
-        return author;
     }
 
     public String getTitle() {
@@ -92,6 +83,9 @@ public class Post implements Datable {
     }
 
     public boolean isHotTopic() {
+        if (postScore >= 20) {
+            isHotTopic = true;
+        }
         return isHotTopic;
     }
 

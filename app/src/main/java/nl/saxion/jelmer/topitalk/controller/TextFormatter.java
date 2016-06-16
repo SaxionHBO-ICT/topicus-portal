@@ -3,7 +3,7 @@ package nl.saxion.jelmer.topitalk.controller;
 import android.widget.EditText;
 
 /**
- * Helper class to get formatted text from an EditText field
+ * Helper class to get formatted text.
  *
  * @author Jelmer Duzijn
  */

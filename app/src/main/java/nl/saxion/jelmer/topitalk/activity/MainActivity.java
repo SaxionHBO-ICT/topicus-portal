@@ -11,18 +11,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import garin.artemiy.quickaction.library.QuickAction;
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostListAdapter;
+import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private PostListAdapter adapter;
     private ListView postList;
     private FloatingActionButton btNewPost;
-    private ImageView ivUpvote;
-    public final static String POSITION_MESSAGE = "position_message";
+    private static JellyRefreshLayout refreshLayout;
+    private QuickAction quickAction;
+    private RelativeLayout popUpMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +36,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         postList = (ListView) findViewById(R.id.lv_post_list);
         btNewPost = (FloatingActionButton) findViewById(R.id.bt_fab_main);
+        refreshLayout = (JellyRefreshLayout) findViewById(R.id.jr_refresh_container_main);
+        popUpMenu = (RelativeLayout) getLayoutInflater().inflate(R.layout.popup_menu, null);
+        quickAction = new QuickAction(this, R.style.PopupAnimation, popUpMenu, popUpMenu);
 
         initialize();
 
-        adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostList());
-        postList.setAdapter(adapter);
+        try {
+            adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostListFromDb());
+            postList.setAdapter(adapter);
+
+            refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
+                @Override
+                public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
+                    adapter.updatePostList();
+                }
+            });
+
+        } catch (NullPointerException e) {
+            Toast.makeText(MainActivity.this, "Berichtenlijst kon niet worden opgehaald.", Toast.LENGTH_SHORT).show();
+        }
 
         btNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -49,18 +70,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, PostDetailActivity.class);
-                intent.putExtra(POSITION_MESSAGE, position);
+                intent.putExtra(PostDetailActivity.POSITION_MESSAGE, position);
                 startActivity(intent);
             }
         });
 
-    }
+        postList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-    @Override
-    protected void onResume() {
-        initialize();
-        adapter.notifyDataSetChanged();
-        super.onResume();
+                if (TopiCoreModel.getInstance().getLocalPostList().get(position).getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+
+                    ImageView ivEdit = (ImageView) popUpMenu.findViewById(R.id.iv_edit_popup);
+                    ImageView ivDelete = (ImageView) popUpMenu.findViewById(R.id.iv_delete_popup);
+
+                    quickAction.show(view);
+                    return true;
+                } else {
+                    Toast.makeText(MainActivity.this, "Je kunt alleen je eigen berichten aanpassen.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        });
     }
 
     private boolean isUserLoggedIn() {
@@ -96,5 +127,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static void finishRefreshing() {
+        refreshLayout.finishRefreshing();
+    }
 
 }

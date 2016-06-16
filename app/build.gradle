@@ -5,7 +5,6 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        multiDexEnabled true
         applicationId "nl.saxion.jelmer.topitalk"
         minSdkVersion 19
         targetSdkVersion 23
@@ -18,14 +17,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile 'commons-io:commons-io:2.4'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.2.0'
-    compile project(':ormlite-core-4.49')
-    compile project(':ormlite-jdbc-4.49')
-    compile project(':mysql-connector-java-3.0.17-ga-bin')
+    compile 'com.github.allan1st:JellyRefreshLayout:1.0.0'
+    compile project(':jasypt-1.9.2')
+    compile project(':gson-2.6.2')
+    compile project(':quickaction-1.2')
 }

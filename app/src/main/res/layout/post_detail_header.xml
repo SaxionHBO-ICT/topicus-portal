@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:layout_height="wrap_content"
+    tools:context=".activity.PostDetailActivity">
+
+    <ImageView
+        android:id="@+id/iv_upvote_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/upvote_circled" />
+
+    <ImageView
+        android:id="@+id/iv_hot_icon_post"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/hot_icon"/>
+
+    <TextView
+        android:id="@+id/tv_upvotes_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_upvote_post"
+        android:layout_marginTop="10dp"
+        android:text="Points:"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_postscore_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_upvotes_post"
+        android:layout_marginStart="3.5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/tv_postscore_placeholder"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_username_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/iv_upvote_post"
+        android:singleLine="true"
+        android:text="@string/username"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_date_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:singleLine="true"
+        android:text="@string/tv_date_placeholder"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_posttitle_post"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_username_post"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/iv_upvote_post"
+        android:background="@drawable/post_item_border"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/tv_posttitle_placeholder"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_posttext_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_posttitle_post"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/post_item_border"
+        android:textColor="@color/colorPrimary"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_posttext_post"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"/>
+
+</RelativeLayout>

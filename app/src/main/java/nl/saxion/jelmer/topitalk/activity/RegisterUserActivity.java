@@ -3,14 +3,15 @@ package nl.saxion.jelmer.topitalk.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
 import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topitalk.controller.LoginHandler;
 import nl.saxion.jelmer.topitalk.controller.TextFormatter;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 public class RegisterUserActivity extends AppCompatActivity {
 
@@ -20,7 +21,9 @@ public class RegisterUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_register_user);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         etUsername = (EditText) findViewById(R.id.et_user_register);
         etPassword = (EditText) findViewById(R.id.et_password_register);
@@ -41,9 +44,12 @@ public class RegisterUserActivity extends AppCompatActivity {
                     String name = TextFormatter.getFormattedTextFromField(etName);
                     String surname = TextFormatter.getFormattedTextFromField(etSurname);
 
-                    TopiCoreModel.getInstance().addUser(username, password, name, surname);
-                    Toast.makeText(RegisterUserActivity.this, "Account met naam: " + username + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
-                    finish();
+                    if (LoginHandler.registerUser(username, password, name, surname)) {
+                        Toast.makeText(RegisterUserActivity.this, "Account met naam: " + username + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Gebruikersnaam is reeds in gebruik.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Controleer of alle velden juist zijn ingevuld.", Toast.LENGTH_LONG).show();
                 }
@@ -59,15 +65,12 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private boolean isFormFilledCorrectly() {
-        return isUsernameUnique(etUsername.getText().toString()) && doPasswordsMatch() && isNameFilled();
+        return doPasswordFieldsMatch() && isNameFilled();
     }
 
-    private boolean isUsernameUnique(String name) {
-        return TopiCoreModel.getInstance().isUsernameUnique(name);
-    }
 
-    private boolean doPasswordsMatch() {
-        if (!etPassword.getText().toString().equals(etRepeatPassword.getText().toString())) {
+    private boolean doPasswordFieldsMatch() {
+        if (!TextFormatter.getFormattedTextFromField(etPassword).equals(TextFormatter.getFormattedTextFromField(etRepeatPassword))) {
             return false;
         } else if (etPassword.getText().toString().equals("") || etRepeatPassword.getText().toString().equals("")) {
             return false;
@@ -76,11 +79,12 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     private boolean isNameFilled() {
-        if (etName.getText().toString().equals("") || etSurname.getText().toString().equals("")) {
-            return false;
-        } else if (etName.getText().toString().equals("") && etSurname.getText().toString().equals("")) {
-            return false;
-        }
+        return !(etName.getText().toString().equals("") || etSurname.getText().toString().equals(""));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
         return true;
     }
 }

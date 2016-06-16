@@ -52,7 +52,7 @@
         android:layout_marginTop="10dp"
         android:layout_toStartOf="@+id/tv_date_listitem"
         android:singleLine="true"
-        android:text="@string/gebruikersnaam"
+        android:text="@string/username"
         android:textSize="10sp" />
 
     <TextView
