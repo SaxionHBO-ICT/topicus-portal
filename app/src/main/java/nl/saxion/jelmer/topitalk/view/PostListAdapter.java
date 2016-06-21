@@ -17,7 +17,8 @@ import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 /**
- * Created by Nyds on 21/05/2016.
+ * Adapter class used in MainActivity to fill the
+ * ListView with Post objects.
  */
 public class PostListAdapter extends ArrayAdapter<Post> {
 
@@ -49,6 +50,18 @@ public class PostListAdapter extends ArrayAdapter<Post> {
         tvDate.setText(post.getPostDate());
         tvText.setText(post.getText());
 
+        ivUpvote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Simulate instant updating of the postscore field.
+                ivUpvote.setAlpha(0.5f);
+                tvPostscore.setVisibility(View.VISIBLE);
+                post.upvote();
+                TopiCoreModel.getInstance().upvotePost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
+                notifyDataSetChanged();
+            }
+        });
+
         //This sets the textcolor of the username field to blue and adds an asterix (*) if the post is owned by the current user.
         if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
             tvUsername.setText(post.getAuthorUsername() + "*");
@@ -58,6 +71,7 @@ public class PostListAdapter extends ArrayAdapter<Post> {
             tvUsername.setTextColor(tvDate.getTextColors().getDefaultColor());
         }
 
+//        If the post hasn't been upvoted yet, hide the score textview.
         if (post.getPostScore() != 0) {
             tvPostscore.setVisibility(View.VISIBLE);
             tvPostscore.setText(""+ post.getPostScore());
@@ -65,36 +79,31 @@ public class PostListAdapter extends ArrayAdapter<Post> {
             tvPostscore.setVisibility(View.INVISIBLE);
         }
 
+        //If the user has already upvoted a post, grey out the upvote button.
         if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId())) {
             ivUpvote.setAlpha(0.5f);
+            ivUpvote.setClickable(false);
         } else {
             ivUpvote.setAlpha(1f);
+            ivUpvote.setClickable(true);
         }
 
+        //If the post is a hot topic (20+ upvotes), make the flame icon visible.
         if (post.isHotTopic()) {
             ivHotIcon.setVisibility(View.VISIBLE);
         } else {
             ivHotIcon.setVisibility(View.INVISIBLE);
         }
 
-        ivUpvote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivUpvote.setAlpha(0.5f);
-                int postScoreToSet = post.getPostScore() + 1;
-                tvPostscore.setText(Integer.toString(postScoreToSet));
-                TopiCoreModel.getInstance().upvotePost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId());
-                notifyDataSetChanged();
-            }
-        });
-
         return convertView;
     }
 
+    /**
+     * Method to help keep an updated list of Posts from the database.
+     */
     public void updatePostList() {
         super.clear();
         super.addAll(TopiCoreModel.getInstance().getPostListFromDb());
         super.notifyDataSetChanged();
     }
-
 }

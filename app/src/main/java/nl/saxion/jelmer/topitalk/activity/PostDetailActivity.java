@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.saxion.jelmer.topitalk.R;
+import nl.saxion.jelmer.topitalk.controller.ApiHandler;
 import nl.saxion.jelmer.topitalk.model.Post;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 import nl.saxion.jelmer.topitalk.view.PostDetailListAdapter;
@@ -26,6 +27,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private ListView lvPostDetail;
     private PostDetailListAdapter adapter;
     private static JellyRefreshLayout refreshLayout;
+    private int postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,13 @@ public class PostDetailActivity extends AppCompatActivity {
             finish();
             Toast.makeText(PostDetailActivity.this, "Bericht niet gevonden!", Toast.LENGTH_SHORT).show();
         } finally {
-            //If there is a post object create the adapter and fill the fields.
+
             if (post != null) {
 
-                adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getCommentsForThread(post.getPostId()));
+                adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getCommentsForThreadId(post.getPostId()));
 
                 final Post finalPost = post;
+                postId = finalPost.getPostId();
                 tvAddComment.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -81,8 +84,20 @@ public class PostDetailActivity extends AppCompatActivity {
                 tvText = (TextView) headerView.findViewById(R.id.tv_posttext_post);
                 tvPostscore = (TextView) headerView.findViewById(R.id.tv_postscore_post);
                 ivHotIcon = (ImageView) headerView.findViewById(R.id.iv_hot_icon_post);
+                ivUpvote = (ImageView) headerView.findViewById(R.id.iv_upvote_post);
 
-                //This sets the textcolor of the username field to blue and adds an asterix (*) if the post is owned by the current user.
+                ivUpvote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Simulate instant updating of the postscore field.
+                        ivUpvote.setAlpha(0.5f);
+                        tvPostscore.setVisibility(View.VISIBLE);
+                        tvPostscore.setText(String.valueOf(finalPost.getPostScore() + 1 + ""));
+                        TopiCoreModel.getInstance().upvotePost(finalPost.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
                 if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
                     tvUsername.setText(post.getAuthorUsername() + "*");
                     tvUsername.setTextColor(headerView.getResources().getColor(R.color.topicusBlue));
@@ -105,6 +120,14 @@ public class PostDetailActivity extends AppCompatActivity {
                     tvPostscore.setVisibility(View.INVISIBLE);
                 }
 
+                if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId())) {
+                    ivUpvote.setAlpha(0.5f);
+                    ivUpvote.setClickable(false);
+                } else {
+                    ivUpvote.setAlpha(1f);
+                    ivUpvote.setClickable(true);
+                }
+
                 if (post.isHotTopic()) {
                     ivHotIcon.setVisibility(View.VISIBLE);
                 } else {
@@ -116,6 +139,12 @@ public class PostDetailActivity extends AppCompatActivity {
 
     public static void finishRefreshing() {
         refreshLayout.finishRefreshing();
+    }
+
+    @Override
+    protected void onResume() {
+        adapter.updateCommentList(postId);
+        super.onResume();
     }
 
     @Override

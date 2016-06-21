@@ -6,18 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Nyds on 21/05/2016.
+ * This class represents a Comment.
  */
 
 public class Comment implements Datable {
 
     private int commentId, inThreadId, authorId;
     private String commentDate, text, authorUsername;
-
-
-    public Comment() {
-        //No arg constructor, needed by ORMLite.
-    }
 
     public Comment(int inThreadId, int authorId, String authorUsername, String text) {
         this.inThreadId = inThreadId;
@@ -29,7 +24,6 @@ public class Comment implements Datable {
 
     public Comment(int commentId, int inThreadId, int authorId, String authorUsername, String text) {
         this.commentId = commentId;
-
         this.inThreadId = inThreadId;
         this.authorId = authorId;
         this.authorUsername = authorUsername;
@@ -39,10 +33,6 @@ public class Comment implements Datable {
 
     public int getAuthorId() {
         return authorId;
-    }
-
-    public int getCommentId() {
-        return commentId;
     }
 
     public int getInThreadId() {
@@ -63,7 +53,6 @@ public class Comment implements Datable {
 
     @NonNull
     public String generateDate() {
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return sdf.format(new Date());
     }

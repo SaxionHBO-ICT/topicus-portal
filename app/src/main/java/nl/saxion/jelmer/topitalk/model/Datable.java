@@ -3,7 +3,8 @@ package nl.saxion.jelmer.topitalk.model;
 import android.support.annotation.NonNull;
 
 /**
- * Created by Nyds on 23/05/2016.
+ * Interface to compel certain classes to implement a method
+ * to enable timestamping of objects.
  */
 public interface Datable {
     @NonNull

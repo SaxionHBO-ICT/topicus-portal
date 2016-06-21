@@ -5,27 +5,10 @@
     android:clickable="true"
     android:focusableInTouchMode="true">
 
-    <TextView
-        android:id="@+id/tv_new_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_new_post"
-        android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:textSize="18sp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/post_item_border"/>
-
     <EditText
         android:id="@+id/et_post_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/tv_new_post"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"

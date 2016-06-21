@@ -42,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
 
+        //Try instantiating the PostListAdapter using a list of posts from the API.
+        //If no list is returned (no connection to the API), a nullpointer is thrown and caught displaying a toast message.
         try {
             adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostListFromDb());
             postList.setAdapter(adapter);
 
-            refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
+            refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() { //Enables swipe down to refresh.
                 @Override
                 public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
                     adapter.updatePostList();
@@ -57,15 +59,17 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Berichtenlijst kon niet worden opgehaald.", Toast.LENGTH_SHORT).show();
         }
 
+        //Called when the FAB new post button is pressed.
         btNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
 
+        //Called when a post is selected. Start the PostDetailActivity and send the position.
         postList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Open a pop-up menu when a post is long-pressed. (This menu doesn't do anything currently, but should be used to edit/delete posts).
         postList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -94,10 +99,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        adapter.updatePostList();
+        super.onResume();
+    }
+
+    /**
+     * Method to check if a user is logged in.
+     * @return true if yes, false if no.
+     */
     private boolean isUserLoggedIn() {
         return TopiCoreModel.getInstance().getCurrentUser() != null;
     }
 
+    /**
+     * Method to handle starting the LoginActivity and finishing the MainActivity
+     * if there is no user logged in.
+     */
     private void initialize() {
 
         if (!isUserLoggedIn()) {
@@ -127,8 +146,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to handle finishing refresh state of the JellyRefreshLayout
+     * This method is called from the onPostExecute() method in the ApiHandler.
+     */
     public static void finishRefreshing() {
         refreshLayout.finishRefreshing();
     }
-
 }
