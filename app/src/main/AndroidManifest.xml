@@ -12,8 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="nl.saxion.jelmer.topics.activity.MainActivity"
             android:label="Topics"/>
-        <activity android:name="nl.saxion.jelmer.topics.activity.LoginActivity"
-            android:label="Login">
+        <activity android:name="nl.saxion.jelmer.topics.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

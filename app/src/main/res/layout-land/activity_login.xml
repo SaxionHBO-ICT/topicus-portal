@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/topicusYellow"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/topicus_log" />
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="@string/username"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_user"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_border"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
+
+    <TextView
+        android:id="@+id/tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/password"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
+
+    <RelativeLayout
+        android:id="@+id/rl_remember_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/tv_save_credentials"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="81dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/save_credentials"
+            android:textSize="12sp" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_remember_details"
+            style="@style/AlertDialog.AppCompat.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_save_credentials"
+            app:buttonTint="@color/topicusBlue" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_new_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_remember_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:text="@string/new_account"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/tv_new_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/bt_login"
+        android:textColor="@color/topicusWhite" />
+
+</RelativeLayout>
