@@ -35,7 +35,7 @@ public class TopiCoreModel {
         return localPostList;
     }
 
-    public ArrayList<Comment> getCommentsForThread(int threadId) {
+    public ArrayList<Comment> getCommentsForThreadId(int threadId) {
         return ApiHandler.getInstance().getCommentsByThreadId(threadId);
     }
 

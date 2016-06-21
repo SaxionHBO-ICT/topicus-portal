@@ -37,21 +37,27 @@ public class RegisterUserActivity extends AppCompatActivity {
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFormFilledCorrectly()) {
 
-                    String username = TextFormatter.getFormattedTextFromField(etUsername);
-                    String password = TextFormatter.getFormattedTextFromField(etPassword);
-                    String name = TextFormatter.getFormattedTextFromField(etName);
-                    String surname = TextFormatter.getFormattedTextFromField(etSurname);
+                if (!doesPasswordContainSpaces()) {
 
-                    if (LoginHandler.registerUser(username, password, name, surname)) {
-                        Toast.makeText(RegisterUserActivity.this, "Account met naam: " + username + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
-                        finish();
+                    if (isFormFilledCorrectly()) {
+
+                        String username = TextFormatter.getFormattedTextFromField(etUsername);
+                        String password = TextFormatter.getFormattedTextFromField(etPassword);
+                        String name = TextFormatter.getFormattedTextFromField(etName);
+                        String surname = TextFormatter.getFormattedTextFromField(etSurname);
+
+                        if (LoginHandler.registerUser(username, password, name, surname)) {
+                            Toast.makeText(RegisterUserActivity.this, "Account met naam: " + username + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Gebruikersnaam is reeds in gebruik, of geen verbinding mogelijk.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Gebruikersnaam is reeds in gebruik.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Controleer of alle velden juist zijn ingevuld.", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Controleer of alle velden juist zijn ingevuld.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterUserActivity.this, "Er ging iets mis! Wachtwoord mag geen spaties bevatten.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -76,6 +82,10 @@ public class RegisterUserActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private boolean doesPasswordContainSpaces() {
+        return etPassword.getText().toString().contains(" ") || etRepeatPassword.getText().toString().contains(" ");
     }
 
     private boolean isNameFilled() {

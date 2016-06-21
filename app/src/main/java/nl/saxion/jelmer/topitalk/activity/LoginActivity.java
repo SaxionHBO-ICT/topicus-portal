@@ -18,7 +18,8 @@ import nl.saxion.jelmer.topitalk.controller.LoginHandler;
 import nl.saxion.jelmer.topitalk.controller.TextFormatter;
 
 /**
- * Created by Nyds on 23/05/2016.
+ * The LoginActivity handles all user input related to logging in.
+ * When the app is launched, this activity will be run.
  */
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,12 +44,14 @@ public class LoginActivity extends AppCompatActivity {
         tvNewUser = (TextView) findViewById(R.id.tv_new_user);
         cbSave = (CheckBox) findViewById(R.id.cb_remember_details);
 
+        //Check the shared preferences for saved user credentials, when found, auto-fill the textfields.
         if (preferences.contains("username")) {
             cbSave.setChecked(true);
             etUser.setText(preferences.getString("username", ""));
             etPassword.setText(preferences.getString("password", ""));
         }
 
+        //RegisterUserActivity
         tvNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,16 +67,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //If a user taps outside either textview, the keyboard will be closed.
         etUser.setOnFocusChangeListener(new KeyboardFocusHandler(this));
         etPassword.setOnFocusChangeListener(new KeyboardFocusHandler(this));
     }
 
+    /**
+     * Method to handle the login of a user.
+     * Get the formatted text from the fields.
+     * If the login attempt is successful start the MainActivity.
+     */
     private void login() {
 
         String username = TextFormatter.getFormattedTextFromField(etUser);
         String password = TextFormatter.getFormattedTextFromField(etPassword);
 
-        if (LoginHandler.login(username, password)) {
+        if (LoginHandler.login(username, password)) { //If the login is successful.
 
             if (cbSave.isChecked()) {
                 editor.putString("username", username);
@@ -89,8 +98,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
 
         } else {
-            Toast.makeText(LoginActivity.this, "Gegevens onjuist. Controleer uw invoer.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Inloggen niet mogelijk. Gegevens incorrect, of de server is offline.", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

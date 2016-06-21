@@ -14,7 +14,8 @@ import nl.saxion.jelmer.topitalk.model.Comment;
 import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
 
 /**
- * Created by Nyds on 23/05/2016.
+ * Adapter class used in PostDetailActivity to display a list of comments
+ * below the header (post detail) of the ListView.
  */
 public class PostDetailListAdapter extends ArrayAdapter<Comment> {
     
@@ -46,7 +47,7 @@ public class PostDetailListAdapter extends ArrayAdapter<Comment> {
 
     public void updateCommentList(int postId) {
         super.clear();
-        super.addAll(TopiCoreModel.getInstance().getCommentsForThread(postId));
+        super.addAll(TopiCoreModel.getInstance().getCommentsForThreadId(postId));
         super.notifyDataSetChanged();
     }
 }

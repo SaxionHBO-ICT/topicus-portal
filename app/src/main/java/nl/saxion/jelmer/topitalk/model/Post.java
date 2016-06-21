@@ -3,11 +3,10 @@ package nl.saxion.jelmer.topitalk.model;
 import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Nyds on 21/05/2016.
+ * This class represents a Post.
  */
 public class Post implements Datable {
 
@@ -15,9 +14,6 @@ public class Post implements Datable {
     private String authorUsername, postDate, title, text;
     private boolean isHotTopic;
     private int postScore; //Total number of votes for a post. Can be increased by up-voting.
-
-    private int imageId;
-    private ArrayList<Comment> comments;
 
     public Post(int userId, String authorUsername, String title, String text) {
         this.userId = userId;
@@ -27,7 +23,6 @@ public class Post implements Datable {
         isHotTopic = false;
         postScore = 0;
         postDate = generateDate();
-        comments = new ArrayList<>();
     }
 
     public Post(int postId, int userId, String authorUsername, String title, String text) {
@@ -39,7 +34,6 @@ public class Post implements Datable {
         isHotTopic = false;
         postScore = 0;
         postDate = generateDate();
-        comments = new ArrayList<>();
     }
 
     /**
@@ -58,10 +52,6 @@ public class Post implements Datable {
         return postId;
     }
 
-    public int getImageId() {
-        return imageId;
-    }
-
     public String getPostDate() {
         return postDate;
     }
@@ -72,10 +62,6 @@ public class Post implements Datable {
 
     public String getText() {
         return text;
-    }
-
-    public ArrayList<Comment> getComments() {
-        return comments;
     }
 
     public int getPostScore() {
@@ -89,36 +75,8 @@ public class Post implements Datable {
         return isHotTopic;
     }
 
-    /**
-     * Setters
-     */
-
-    public void editPostText(String text) {
-        this.text = text;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public void setPostScore(int postScore) { //Debug method to manually set a post's score.
-        this.postScore = postScore;
-    }
-
-    public void setHotTopic(boolean isHotTopic) { //Debug method to manually flag a post as hot topic.
-        this.isHotTopic = isHotTopic;
-    }
-
-    public void addComment(Comment comment) {
-        comments.add(comment);
-    }
-
-    public void upvotePost() {
+    public void upvote() {
         postScore++;
-
-        if (postScore >= 20) {
-            isHotTopic = true;
-        }
     }
 
     /**

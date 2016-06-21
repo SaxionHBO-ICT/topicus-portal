@@ -40,8 +40,8 @@ public class NewPostActivity extends AppCompatActivity {
                     TopiCoreModel.getInstance().addPost(TopiCoreModel.getInstance().getCurrentUser().getUserId(), TopiCoreModel.getInstance().getCurrentUser().getUsername(), title, text);
                     finish();
 
-                    Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
+//                    startActivity(intent);
 
                 } else {
                     Toast.makeText(NewPostActivity.this, "Titel- en berichtveld mogen niet leeg zijn.", Toast.LENGTH_SHORT).show();
