@@ -1,8 +1,8 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -11,11 +11,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.ApiHandler;
-import nl.saxion.jelmer.topitalk.model.Post;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
-import nl.saxion.jelmer.topitalk.view.PostDetailListAdapter;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.ApiHandler;
+import nl.saxion.jelmer.topics.model.Post;
+import nl.saxion.jelmer.topics.model.TopicsModel;
+import nl.saxion.jelmer.topics.view.PostDetailListAdapter;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 public class PostDetailActivity extends AppCompatActivity {
@@ -47,7 +47,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         //This try/catch clause will prevent the app from crashing when a deleted post is selected.
         try {
-            post = TopiCoreModel.getInstance().getLocalPostList().get(position);
+            post = TopicsModel.getInstance().getLocalPostList().get(position);
         } catch (IndexOutOfBoundsException e) {
             finish();
             Toast.makeText(PostDetailActivity.this, "Bericht niet gevonden!", Toast.LENGTH_SHORT).show();
@@ -55,7 +55,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
             if (post != null) {
 
-                adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getCommentsForThreadId(post.getPostId()));
+                adapter = new PostDetailListAdapter(this, TopicsModel.getInstance().getCommentsForThreadId(post.getPostId()));
 
                 final Post finalPost = post;
                 postId = finalPost.getPostId();
@@ -93,12 +93,12 @@ public class PostDetailActivity extends AppCompatActivity {
                         ivUpvote.setAlpha(0.5f);
                         tvPostscore.setVisibility(View.VISIBLE);
                         tvPostscore.setText(String.valueOf(finalPost.getPostScore() + 1 + ""));
-                        TopiCoreModel.getInstance().upvotePost(finalPost.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
+                        TopicsModel.getInstance().upvotePost(finalPost.getPostId(), TopicsModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
                         adapter.notifyDataSetChanged();
                     }
                 });
 
-                if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+                if (post.getAuthorUsername().equals(TopicsModel.getInstance().getCurrentUser().getUsername())) {
                     tvUsername.setText(post.getAuthorUsername() + "*");
                     tvUsername.setTextColor(headerView.getResources().getColor(R.color.topicusBlue));
                 } else {
@@ -120,7 +120,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     tvPostscore.setVisibility(View.INVISIBLE);
                 }
 
-                if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId())) {
+                if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopicsModel.getInstance().getCurrentUser().getUserId())) {
                     ivUpvote.setAlpha(0.5f);
                     ivUpvote.setClickable(false);
                 } else {

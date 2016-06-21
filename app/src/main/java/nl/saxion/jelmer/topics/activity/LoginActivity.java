@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
-import nl.saxion.jelmer.topitalk.controller.LoginHandler;
-import nl.saxion.jelmer.topitalk.controller.TextFormatter;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topics.controller.LoginHandler;
+import nl.saxion.jelmer.topics.controller.TextFormatter;
 
 /**
  * The LoginActivity handles all user input related to logging in.

@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk;
+package nl.saxion.jelmer.topics;
 
 import org.junit.Test;
 

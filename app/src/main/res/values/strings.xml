@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TopiTalk</string>
+    <string name="app_name">Topics</string>
     <string name="username">Gebruikersnaam</string>
     <string name="password">Wachtwoord</string>
     <string name="bt_login">Login</string>

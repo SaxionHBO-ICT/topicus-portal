@@ -1,17 +1,17 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
-import nl.saxion.jelmer.topitalk.controller.LoginHandler;
-import nl.saxion.jelmer.topitalk.controller.TextFormatter;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topics.controller.LoginHandler;
+import nl.saxion.jelmer.topics.controller.TextFormatter;
 
 public class RegisterUserActivity extends AppCompatActivity {
 

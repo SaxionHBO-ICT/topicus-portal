@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.view;
+package nl.saxion.jelmer.topics.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.Comment;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.model.Comment;
+import nl.saxion.jelmer.topics.model.TopicsModel;
 
 /**
  * Adapter class used in PostDetailActivity to display a list of comments
@@ -47,7 +47,7 @@ public class PostDetailListAdapter extends ArrayAdapter<Comment> {
 
     public void updateCommentList(int postId) {
         super.clear();
-        super.addAll(TopiCoreModel.getInstance().getCommentsForThreadId(postId));
+        super.addAll(TopicsModel.getInstance().getCommentsForThreadId(postId));
         super.notifyDataSetChanged();
     }
 }

@@ -1,28 +1,28 @@
-package nl.saxion.jelmer.topitalk.model;
+package nl.saxion.jelmer.topics.model;
 
 import java.util.ArrayList;
 
-import nl.saxion.jelmer.topitalk.controller.ApiHandler;
+import nl.saxion.jelmer.topics.controller.ApiHandler;
 
 /**
  * Created by Nyds on 20/05/2016.
  */
-public class TopiCoreModel {
+public class TopicsModel {
 
     private User currentUser;
-    private static TopiCoreModel topiCoreModel = null;
+    private static TopicsModel topicsModel = null;
     private ArrayList<Post> localPostList;
 
-    private TopiCoreModel() {
+    private TopicsModel() {
         localPostList = new ArrayList<>();
     }
 
-    public static TopiCoreModel getInstance() {
+    public static TopicsModel getInstance() {
 
-        if (topiCoreModel == null) {
-            topiCoreModel = new TopiCoreModel();
+        if (topicsModel == null) {
+            topicsModel = new TopicsModel();
         }
-        return topiCoreModel;
+        return topicsModel;
     }
 
     public User getCurrentUser() {

@@ -1,9 +1,9 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topics.controller;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
-import nl.saxion.jelmer.topitalk.model.User;
+import nl.saxion.jelmer.topics.model.TopicsModel;
+import nl.saxion.jelmer.topics.model.User;
 
 /**
  * Login helper class that validates a login attempt.
@@ -18,7 +18,7 @@ public abstract class LoginHandler {
 
     /**
      * Method to validate a login attempt.
-     * If true, the user is set in TopiCoreModel.
+     * If true, the user is set in TopicsModel.
      *
      * @param username Username parameter from login attempt
      * @param password Password parameter from login attempt
@@ -31,7 +31,7 @@ public abstract class LoginHandler {
         if (user != null) {
             String encryptPassword = encryptPassword(password); //Encrypt the password.
             if (decryptPassword(user.getPassword()).equals(decryptPassword(encryptPassword))) { //Decrypt the passwords & compare.
-                TopiCoreModel.getInstance().setCurrentUser(user); //If passwords match, login the user.
+                TopicsModel.getInstance().setCurrentUser(user); //If passwords match, login the user.
                 return true;
             }
         }

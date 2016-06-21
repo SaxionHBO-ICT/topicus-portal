@@ -1,17 +1,17 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topics.model.TopicsModel;
 
 public class NewCommentActivity extends AppCompatActivity {
 
@@ -43,11 +43,11 @@ public class NewCommentActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (isCommentFormFilled()) {
-                    int authorId = TopiCoreModel.getInstance().getCurrentUser().getUserId();
-                    String authorUsername = TopiCoreModel.getInstance().getCurrentUser().getUsername();
+                    int authorId = TopicsModel.getInstance().getCurrentUser().getUserId();
+                    String authorUsername = TopicsModel.getInstance().getCurrentUser().getUsername();
                     String text = etText.getText().toString();
 
-                    TopiCoreModel.getInstance().addComment(postId, authorId, authorUsername, text);
+                    TopicsModel.getInstance().addComment(postId, authorId, authorUsername, text);
                     finish();
                 }
             }

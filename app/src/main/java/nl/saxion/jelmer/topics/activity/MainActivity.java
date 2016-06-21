@@ -1,9 +1,9 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import garin.artemiy.quickaction.library.QuickAction;
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
-import nl.saxion.jelmer.topitalk.view.PostListAdapter;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.model.TopicsModel;
+import nl.saxion.jelmer.topics.view.PostListAdapter;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //Try instantiating the PostListAdapter using a list of posts from the API.
         //If no list is returned (no connection to the API), a nullpointer is thrown and caught displaying a toast message.
         try {
-            adapter = new PostListAdapter(this, TopiCoreModel.getInstance().getPostListFromDb());
+            adapter = new PostListAdapter(this, TopicsModel.getInstance().getPostListFromDb());
             postList.setAdapter(adapter);
 
             refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() { //Enables swipe down to refresh.
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                if (TopiCoreModel.getInstance().getLocalPostList().get(position).getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+                if (TopicsModel.getInstance().getLocalPostList().get(position).getAuthorUsername().equals(TopicsModel.getInstance().getCurrentUser().getUsername())) {
 
                     ImageView ivEdit = (ImageView) popUpMenu.findViewById(R.id.iv_edit_popup);
                     ImageView ivDelete = (ImageView) popUpMenu.findViewById(R.id.iv_delete_popup);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
      * @return true if yes, false if no.
      */
     private boolean isUserLoggedIn() {
-        return TopiCoreModel.getInstance().getCurrentUser() != null;
+        return TopicsModel.getInstance().getCurrentUser() != null;
     }
 
     /**
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                TopiCoreModel.getInstance().logoutCurrentUser();
+                TopicsModel.getInstance().logoutCurrentUser();
                 initialize();
                 return true;
             default:

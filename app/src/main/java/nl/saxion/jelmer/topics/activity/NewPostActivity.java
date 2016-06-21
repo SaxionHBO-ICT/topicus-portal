@@ -1,17 +1,17 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.KeyboardFocusHandler;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.KeyboardFocusHandler;
+import nl.saxion.jelmer.topics.model.TopicsModel;
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class NewPostActivity extends AppCompatActivity {
                     String title = etPostTitle.getText().toString();
                     String text = etPostText.getText().toString();
 
-                    TopiCoreModel.getInstance().addPost(TopiCoreModel.getInstance().getCurrentUser().getUserId(), TopiCoreModel.getInstance().getCurrentUser().getUsername(), title, text);
+                    TopicsModel.getInstance().addPost(TopicsModel.getInstance().getCurrentUser().getUserId(), TopicsModel.getInstance().getCurrentUser().getUsername(), title, text);
                     finish();
 
 //                    Intent intent = new Intent(NewPostActivity.this, MainActivity.class);

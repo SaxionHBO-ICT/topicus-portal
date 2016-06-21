@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topics.controller;
 
 import android.os.AsyncTask;
 
@@ -15,12 +15,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import nl.saxion.jelmer.topitalk.activity.MainActivity;
-import nl.saxion.jelmer.topitalk.activity.PostDetailActivity;
-import nl.saxion.jelmer.topitalk.model.Comment;
-import nl.saxion.jelmer.topitalk.model.Post;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
-import nl.saxion.jelmer.topitalk.model.User;
+import nl.saxion.jelmer.topics.activity.MainActivity;
+import nl.saxion.jelmer.topics.activity.PostDetailActivity;
+import nl.saxion.jelmer.topics.model.Comment;
+import nl.saxion.jelmer.topics.model.Post;
+import nl.saxion.jelmer.topics.model.TopicsModel;
+import nl.saxion.jelmer.topics.model.User;
 
 
 /**
@@ -40,7 +40,6 @@ public class ApiHandler {
      * Database URL constants
      */
     private static final String API_URL = "http://10.0.2.2:4567/";
-//    private static final String API_URL = "http://192.168.2.105:4567/";
 //    private static final String API_URL = "http://192.168.1.3:4567/";
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
@@ -391,7 +390,7 @@ public class ApiHandler {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) { //Force refresh the list of posts on the device.
-                TopiCoreModel.getInstance().refreshPostList();
+                TopicsModel.getInstance().refreshPostList();
             }
         }
     }

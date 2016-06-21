@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topics.controller;
 
 import android.widget.EditText;
 
