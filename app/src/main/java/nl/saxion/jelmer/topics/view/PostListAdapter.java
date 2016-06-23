@@ -70,7 +70,7 @@ public class PostListAdapter extends ArrayAdapter<Post> {
             tvUsername.setTextColor(tvDate.getTextColors().getDefaultColor());
         }
 
-//        If the post hasn't been upvoted yet, hide the score textview.
+        //If the post hasn't been upvoted yet, hide the score textview. If not, fill the field.
         if (post.getPostScore() != 0) {
             tvPostscore.setVisibility(View.VISIBLE);
             tvPostscore.setText(""+ post.getPostScore());

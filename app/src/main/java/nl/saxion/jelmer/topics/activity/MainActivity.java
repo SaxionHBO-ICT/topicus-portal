@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
                 startActivity(intent);
-//                finish();
             }
         });
 
@@ -125,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    /**
+     * Menu functionality.
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

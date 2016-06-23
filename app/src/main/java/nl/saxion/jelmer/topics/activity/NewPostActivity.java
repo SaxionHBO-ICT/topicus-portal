@@ -32,16 +32,16 @@ public class NewPostActivity extends AppCompatActivity {
         btPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPostFormFilled()) {
+                if (isPostFormFilled()) { //If the postform is filled, get the data needed to make a new post.
 
+                    //New variables to make it easier to read.
+                    int userId = TopicsModel.getInstance().getCurrentUser().getUserId();
+                    String username = TopicsModel.getInstance().getCurrentUser().getUsername();
                     String title = etPostTitle.getText().toString();
                     String text = etPostText.getText().toString();
 
-                    TopicsModel.getInstance().addPost(TopicsModel.getInstance().getCurrentUser().getUserId(), TopicsModel.getInstance().getCurrentUser().getUsername(), title, text);
+                    TopicsModel.getInstance().addPost(userId, username, title, text);
                     finish();
-
-//                    Intent intent = new Intent(NewPostActivity.this, MainActivity.class);
-//                    startActivity(intent);
 
                 } else {
                     Toast.makeText(NewPostActivity.this, "Titel- en berichtveld mogen niet leeg zijn.", Toast.LENGTH_SHORT).show();
@@ -53,6 +53,10 @@ public class NewPostActivity extends AppCompatActivity {
         etPostText.setOnFocusChangeListener(new KeyboardFocusHandler(this));
     }
 
+    /**
+     * Method to check if neither fields are empty.
+     * @return true if both fields are filled, false if not.
+     */
     private boolean isPostFormFilled() {
         return !etPostTitle.getText().toString().equals("") && !etPostText.getText().toString().equals("");
     }

@@ -42,7 +42,7 @@ public class NewCommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (isCommentFormFilled()) {
+                if (isCommentFormFilled()) { //If the form is filled, get the data needed to create a new comment.
                     int authorId = TopicsModel.getInstance().getCurrentUser().getUserId();
                     String authorUsername = TopicsModel.getInstance().getCurrentUser().getUsername();
                     String text = etText.getText().toString();
@@ -56,6 +56,10 @@ public class NewCommentActivity extends AppCompatActivity {
         etText.setOnFocusChangeListener(new KeyboardFocusHandler(this));
     }
 
+    /**
+     * Checks if a comment field contains text.
+     * @return true if the textfield contains text, false if it doesn't.
+     */
     private boolean isCommentFormFilled() {
         return !etText.getText().toString().equals("");
     }

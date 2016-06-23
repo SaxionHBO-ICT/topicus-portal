@@ -84,11 +84,11 @@ public class LoginActivity extends AppCompatActivity {
 
         if (LoginHandler.login(username, password)) { //If the login is successful.
 
-            if (cbSave.isChecked()) {
+            if (cbSave.isChecked()) { //If the check button is checked save the username & password as keypairs.
                 editor.putString("username", username);
                 editor.putString("password", password);
                 editor.apply();
-            } else {
+            } else { //If not, remove the data from the device.
                 editor.remove("username");
                 editor.remove("password");
                 editor.apply();

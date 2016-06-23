@@ -45,6 +45,10 @@ public class PostDetailListAdapter extends ArrayAdapter<Comment> {
         return convertView;
     }
 
+    /**
+     * Method to help keep an updated list of comments from the database
+     * @param postId the id of the post we want comments for.
+     */
     public void updateCommentList(int postId) {
         super.clear();
         super.addAll(TopicsModel.getInstance().getCommentsForThreadId(postId));

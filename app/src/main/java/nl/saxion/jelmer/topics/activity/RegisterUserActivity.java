@@ -38,16 +38,17 @@ public class RegisterUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!doesPasswordContainSpaces()) {
+                if (!doesPasswordContainSpaces()) { //Check for spaces in passwords first.
 
-                    if (isFormFilledCorrectly()) {
+                    if (isFormFilledCorrectly()) { //Then check if the form is filled correctly.
 
+                        //Get the data from the fields.
                         String username = TextFormatter.getFormattedTextFromField(etUsername);
                         String password = TextFormatter.getFormattedTextFromField(etPassword);
                         String name = TextFormatter.getFormattedTextFromField(etName);
                         String surname = TextFormatter.getFormattedTextFromField(etSurname);
 
-                        if (LoginHandler.registerUser(username, password, name, surname)) {
+                        if (LoginHandler.registerUser(username, password, name, surname)) { //If the registration was a success, toast and finish the activity.
                             Toast.makeText(RegisterUserActivity.this, "Account met naam: " + username + " is voor je geregistreerd.", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
@@ -62,6 +63,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             }
         });
 
+        //Enables the user to tap outside a textview to close the keyboard.
         etUsername.setOnFocusChangeListener(new KeyboardFocusHandler(this));
         etPassword.setOnFocusChangeListener(new KeyboardFocusHandler(this));
         etRepeatPassword.setOnFocusChangeListener(new KeyboardFocusHandler(this));
@@ -70,11 +72,18 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to check if all fields are filled correctly.
+     * @return true if password fields match and namefields are filled.
+     */
     private boolean isFormFilledCorrectly() {
         return doPasswordFieldsMatch() && isNameFilled();
     }
 
-
+    /**
+     * Method to check if passwords match and neither has been left empty.
+     * @return true if they match and fields are filled, false if they're not.
+     */
     private boolean doPasswordFieldsMatch() {
         if (!TextFormatter.getFormattedTextFromField(etPassword).equals(TextFormatter.getFormattedTextFromField(etRepeatPassword))) {
             return false;
@@ -84,10 +93,19 @@ public class RegisterUserActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * MEthod to check if passwords contain spaces.
+     * Spaces are trimmed from the passwords anyway, but this enables specific feedback to the user.
+     * @return true if either password contains a space, false if they don't.
+     */
     private boolean doesPasswordContainSpaces() {
         return etPassword.getText().toString().contains(" ") || etRepeatPassword.getText().toString().contains(" ");
     }
 
+    /**
+     * Method to check if both namefieds are filled.
+     * @return true if they are, false if they're not.
+     */
     private boolean isNameFilled() {
         return !(etName.getText().toString().equals("") || etSurname.getText().toString().equals(""));
     }
