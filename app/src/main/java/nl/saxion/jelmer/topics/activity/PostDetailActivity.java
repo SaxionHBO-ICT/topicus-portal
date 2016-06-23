@@ -1,8 +1,8 @@
-package nl.saxion.jelmer.topitalk.activity;
+package nl.saxion.jelmer.topics.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -11,12 +11,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.ApiHandler;
-import nl.saxion.jelmer.topitalk.model.Post;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
-import nl.saxion.jelmer.topitalk.view.PostDetailListAdapter;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.ApiHandler;
+import nl.saxion.jelmer.topics.model.Post;
+import nl.saxion.jelmer.topics.model.TopicsModel;
+import nl.saxion.jelmer.topics.view.PostDetailListAdapter;
 import uk.co.imallan.jellyrefresh.JellyRefreshLayout;
+
 
 public class PostDetailActivity extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         //This try/catch clause will prevent the app from crashing when a deleted post is selected.
         try {
-            post = TopiCoreModel.getInstance().getLocalPostList().get(position);
+            post = TopicsModel.getInstance().getLocalPostList().get(position);
         } catch (IndexOutOfBoundsException e) {
             finish();
             Toast.makeText(PostDetailActivity.this, "Bericht niet gevonden!", Toast.LENGTH_SHORT).show();
@@ -55,7 +56,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
             if (post != null) {
 
-                adapter = new PostDetailListAdapter(this, TopiCoreModel.getInstance().getCommentsForThreadId(post.getPostId()));
+                adapter = new PostDetailListAdapter(this, TopicsModel.getInstance().getCommentsForThreadId(post.getPostId()));
 
                 final Post finalPost = post;
                 postId = finalPost.getPostId();
@@ -69,6 +70,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     }
                 });
 
+                //Enables swipe down to refresh.
                 refreshLayout.setRefreshListener(new JellyRefreshLayout.JellyRefreshListener() {
                     @Override
                     public void onRefresh(JellyRefreshLayout jellyRefreshLayout) {
@@ -76,8 +78,9 @@ public class PostDetailActivity extends AppCompatActivity {
                     }
                 });
 
-                View headerView = LayoutInflater.from(this).inflate(R.layout.post_detail_header, lvPostDetail, false);
+                View headerView = LayoutInflater.from(this).inflate(R.layout.post_detail_header, lvPostDetail, false); //Inflate the detailheaderview.
 
+                //Set the header data.
                 tvUsername = (TextView) headerView.findViewById(R.id.tv_username_post);
                 tvDate = (TextView) headerView.findViewById(R.id.tv_date_post);
                 tvTitle = (TextView) headerView.findViewById(R.id.tv_posttitle_post);
@@ -93,12 +96,13 @@ public class PostDetailActivity extends AppCompatActivity {
                         ivUpvote.setAlpha(0.5f);
                         tvPostscore.setVisibility(View.VISIBLE);
                         tvPostscore.setText(String.valueOf(finalPost.getPostScore() + 1 + ""));
-                        TopiCoreModel.getInstance().upvotePost(finalPost.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
+                        TopicsModel.getInstance().upvotePost(finalPost.getPostId(), TopicsModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
                         adapter.notifyDataSetChanged();
                     }
                 });
 
-                if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+                //This sets the textcolor of the username field to blue and adds an asterix (*) if the post is owned by the current user.
+                if (post.getAuthorUsername().equals(TopicsModel.getInstance().getCurrentUser().getUsername())) {
                     tvUsername.setText(post.getAuthorUsername() + "*");
                     tvUsername.setTextColor(headerView.getResources().getColor(R.color.topicusBlue));
                 } else {
@@ -113,6 +117,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 lvPostDetail.addHeaderView(headerView);
                 lvPostDetail.setAdapter(adapter);
 
+                //If the post hasn't been upvoted yet, hide the score textview. If not, fill the field.
                 if (post.getPostScore() != 0) {
                     tvPostscore.setVisibility(View.VISIBLE);
                     tvPostscore.setText("" + post.getPostScore());
@@ -120,7 +125,8 @@ public class PostDetailActivity extends AppCompatActivity {
                     tvPostscore.setVisibility(View.INVISIBLE);
                 }
 
-                if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId())) {
+                //Greys out the upvote button if a user has already upvoted a certain post.
+                if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopicsModel.getInstance().getCurrentUser().getUserId())) {
                     ivUpvote.setAlpha(0.5f);
                     ivUpvote.setClickable(false);
                 } else {
@@ -128,6 +134,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     ivUpvote.setClickable(true);
                 }
 
+                //If the post is a hot topic (20+ upvotes), make the flame icon visible.
                 if (post.isHotTopic()) {
                     ivHotIcon.setVisibility(View.VISIBLE);
                 } else {
@@ -137,10 +144,15 @@ public class PostDetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to tell the refreshLayout refreshing animation can be stopped.
+     * Called from the onPostExecute in ApiHandler method pertaining to comments.
+     */
     public static void finishRefreshing() {
         refreshLayout.finishRefreshing();
     }
 
+    //Keep an updated list.
     @Override
     protected void onResume() {
         adapter.updateCommentList(postId);

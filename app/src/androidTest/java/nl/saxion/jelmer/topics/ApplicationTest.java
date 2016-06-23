@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk;
+package nl.saxion.jelmer.topics;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

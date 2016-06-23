@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.model;
+package nl.saxion.jelmer.topics.model;
 
 import android.support.annotation.NonNull;
 

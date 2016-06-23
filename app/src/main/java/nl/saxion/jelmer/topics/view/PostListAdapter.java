@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.view;
+package nl.saxion.jelmer.topics.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,13 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import nl.saxion.jelmer.topitalk.R;
-import nl.saxion.jelmer.topitalk.controller.ApiHandler;
-import nl.saxion.jelmer.topitalk.model.Post;
-import nl.saxion.jelmer.topitalk.model.TopiCoreModel;
+import nl.saxion.jelmer.topics.R;
+import nl.saxion.jelmer.topics.controller.ApiHandler;
+import nl.saxion.jelmer.topics.model.Post;
+import nl.saxion.jelmer.topics.model.TopicsModel;
 
 /**
  * Adapter class used in MainActivity to fill the
@@ -57,13 +56,13 @@ public class PostListAdapter extends ArrayAdapter<Post> {
                 ivUpvote.setAlpha(0.5f);
                 tvPostscore.setVisibility(View.VISIBLE);
                 post.upvote();
-                TopiCoreModel.getInstance().upvotePost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
+                TopicsModel.getInstance().upvotePost(post.getPostId(), TopicsModel.getInstance().getCurrentUser().getUserId()); //Upvote the post.
                 notifyDataSetChanged();
             }
         });
 
         //This sets the textcolor of the username field to blue and adds an asterix (*) if the post is owned by the current user.
-        if (post.getAuthorUsername().equals(TopiCoreModel.getInstance().getCurrentUser().getUsername())) {
+        if (post.getAuthorUsername().equals(TopicsModel.getInstance().getCurrentUser().getUsername())) {
             tvUsername.setText(post.getAuthorUsername() + "*");
             tvUsername.setTextColor(convertView.getResources().getColor(R.color.topicusBlue));
         } else {
@@ -71,7 +70,7 @@ public class PostListAdapter extends ArrayAdapter<Post> {
             tvUsername.setTextColor(tvDate.getTextColors().getDefaultColor());
         }
 
-//        If the post hasn't been upvoted yet, hide the score textview.
+        //If the post hasn't been upvoted yet, hide the score textview. If not, fill the field.
         if (post.getPostScore() != 0) {
             tvPostscore.setVisibility(View.VISIBLE);
             tvPostscore.setText(""+ post.getPostScore());
@@ -80,7 +79,7 @@ public class PostListAdapter extends ArrayAdapter<Post> {
         }
 
         //If the user has already upvoted a post, grey out the upvote button.
-        if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopiCoreModel.getInstance().getCurrentUser().getUserId())) {
+        if (ApiHandler.getInstance().hasUserUpvotedPost(post.getPostId(), TopicsModel.getInstance().getCurrentUser().getUserId())) {
             ivUpvote.setAlpha(0.5f);
             ivUpvote.setClickable(false);
         } else {
@@ -103,7 +102,7 @@ public class PostListAdapter extends ArrayAdapter<Post> {
      */
     public void updatePostList() {
         super.clear();
-        super.addAll(TopiCoreModel.getInstance().getPostListFromDb());
+        super.addAll(TopicsModel.getInstance().getPostListFromDb());
         super.notifyDataSetChanged();
     }
 }

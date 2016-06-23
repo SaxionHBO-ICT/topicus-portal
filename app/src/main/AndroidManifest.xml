@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.saxion.jelmer.topitalk">
+    package="nl.saxion.jelmer.topics">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,23 +10,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"
+        <activity android:name="nl.saxion.jelmer.topics.activity.MainActivity"
             android:label="Topics"/>
-        <activity android:name=".activity.LoginActivity"
-            android:label="Login">
+        <activity android:name="nl.saxion.jelmer.topics.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterUserActivity"
+        <activity android:name="nl.saxion.jelmer.topics.activity.RegisterUserActivity"
             android:label="Registreer"/>
-        <activity android:name=".activity.NewPostActivity"
+        <activity android:name="nl.saxion.jelmer.topics.activity.NewPostActivity"
             android:label="Bericht"/>
-        <activity android:name=".activity.PostDetailActivity"
+        <activity android:name="nl.saxion.jelmer.topics.activity.PostDetailActivity"
             android:label="Topic"/>
-        <activity android:name=".activity.NewCommentActivity"
+        <activity android:name="nl.saxion.jelmer.topics.activity.NewCommentActivity"
             android:label="Reactie"/>
     </application>
 

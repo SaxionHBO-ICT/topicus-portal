@@ -1,4 +1,4 @@
-package nl.saxion.jelmer.topitalk.controller;
+package nl.saxion.jelmer.topics.controller;
 
 import android.content.Context;
 import android.view.View;
