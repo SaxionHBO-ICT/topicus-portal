@@ -39,8 +39,8 @@ public class ApiHandler {
     /**
      * Database URL constants
      */
-    private static final String API_URL = "http://10.0.2.2:4567/";
-//    private static final String API_URL = "http://192.168.1.3:4567/";
+//    private static final String API_URL = "http://10.0.2.2:4567/"; //URL represents the localhost address of the computer hosting the Android emu.
+    private static final String API_URL = "http://192.168.1.3:4567/"; //URL represents a network address where the API can be reached if it's run on a network.
     private static final String API_SEARCH_USER_URL = API_URL + "users/";
     private static final String API_ADD_USER_URL = API_URL + "users";
     private static final String API_GET_POSTS_URL = API_URL + "posts/";
